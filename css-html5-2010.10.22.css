@@ -1,0 +1,278 @@
+/*
+ * version: 2010.10.22
+ * HoKoNoUmo's style for HTML5
+*/
+
+body {
+	background-color: #FFFFF9;
+	font-family: "Times New Roman", Dialog, Georgia, Times, serif;
+	font-size: 14px;
+}
+
+/*********** HEADING-ELEMENTS ***********************/
+header > h1 {
+	background-color: #00FFFF;/* Aqua */
+	border: 1px solid #000000;
+	color: #000000;
+	font-family: "Times New Roman", Georgia, Times, serif;
+	font-size: 26px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	margin-top: 0px;
+	padding: 0 0 10px 0; /*top right bottom left*/
+	text-align: center;
+}
+
+h1 {
+	background-color: #BDEDFF; /*#F6E3CE;#F5FFFA;#F6E3CE;#FFF5EE;#EEECCC;*/
+	border-top: 2px solid #0000FF;
+	color: #000000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 18px;
+	font-weight: bold;
+	margin-left: 3px;
+}
+
+h2 {
+	background-color: #DCF6DB; /*#F6E3CE;#F5FFFA;#F6E3CE;#FFF5EE;#EEECCC;*/
+	border-top: 2px solid #009900;
+	color: #000000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 17px;
+	font-weight: bold;
+	margin-left: 3px;
+}
+
+h3 {
+	background-color: #DCF6DB; /*#F6E3CE;#F5FFFA;#F6E3CE;#FFF5EE;#EEECCC;*/
+	border-top: 2px solid #009900;
+	color: #000000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 15px;
+	font-weight: bold;
+	margin-left: 15px;
+}
+
+h4 {
+	background-color: #DCF6DB; /*#F6E3CE;#F5FFFA;#F6E3CE;#FFF5EE;#EEECCC;*/
+	border-top: 2px solid #009900;
+	color: #000000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	font-weight: bold;
+	margin-left: 25px;
+}
+
+h5 {
+	background-color: #DCF6DB; /*#F6E3CE;#F5FFFA;#F6E3CE;#FFF5EE;#EEECCC;*/
+	border-top: 2px solid #009900;
+	color: #000000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	font-weight: bold;
+	margin-left: 35px;
+}
+
+h6 {
+	background-color: #DCF6DB; /*#F6E3CE;#F5FFFA;#F6E3CE;#FFF5EE;#EEECCC;*/
+	border-top: 2px solid #009900;
+	color: #000000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	font-weight: bold;
+	margin-left: 45px;
+	/*text-align: center;*/
+}
+
+p.h7 {
+	background-color: #DCF6DB; /*#F6E3CE;#F5FFFA;#F6E3CE;#FFF5EE;#EEECCC;*/
+	border-top: 2px solid #009900;
+	color: #000000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	font-weight: bold;
+	margin-left: 55px;
+	text-indent: 0px;
+}
+p.h8 {
+	background-color: #DCF6DB; /*#F6E3CE;#F5FFFA;#F6E3CE;#FFF5EE;#EEECCC;*/
+	border-top: 2px solid #009900;
+	color: #000000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	font-weight: bold;
+	margin-left: 65px;
+	text-indent: 0px;
+}
+
+/************ FOOTER-ELEMENTS ********************/
+
+footer {
+	background-color: #F8ECE0;
+	border-top: 2px solid #F5D0A9;
+	color: #000000;
+	font-family: serif;
+	font-size: 12px;
+	margin-left: 0px;
+}
+footer > p {
+	font-size: 12px;
+	/*
+	border-top: 4px solid #000000;
+	margin-top: 20px;
+	padding: 3px 0 0 0; /*top right bottom left*/
+}
+footer > p.center {
+	font-size: 12px;
+	text-align: center;
+}
+
+footer > address {
+	font-size: 12px;
+}
+
+	/************ PARAGRAPH-ELEMENTS ********************/
+
+p {
+	text-indent: -25px;
+	margin-left: 25px;
+}
+p.margin-25 {
+	text-indent: 0px;
+	margin-left: 25px;
+}
+p.center {
+	text-align: center;
+}
+
+p.notoc-center {
+	text-align: center;
+}
+
+table {
+	margin-left: 25px;
+}
+
+/************* INLINE text-content ***************************/
+/* a, dfn, br, b, span  */
+
+span.attr-bu {
+	font-weight: bold;
+	text-decoration: underline;
+}
+span.u {
+	text-decoration: underline;
+}
+
+span.font-gr-ext {
+	font-family: "Palatino Linotype";
+}
+span.font-grmg {
+	font-family: MgPolNewTimes;
+	font-size: 16px;
+}
+span.font-serif {
+	font-family: Serif, "Times New Roman", Georgia;
+}
+span.font-sansserif {
+	font-family: SansSerif, "Microsoft Sans Serif", Arial, Dialog, Tahoma;
+}
+span.font-monospaced {
+	font-family: Monospaced, "Courier New", Courier;
+}
+span.font-script {
+	font-family: Script "Monotype Corsiva";
+}
+span.font-decorative {
+	font-family: Wingdings;
+}
+
+span.color-green-bg {
+	background-color: #008000; /* Green; */
+}
+span.color-red {
+	color: #FF0000;/* Red */
+}
+span.color-yellow-bg {
+	background-color: #FFFF00; /* Yellow; */
+}
+
+span.size-x-small {
+	font-size: x-small;
+}
+span.size-small {
+	font-size: small;
+}
+span.size-medium {
+	font-size: large;
+}
+span.size-large {
+	font-size: large;
+	font-weight: bold;
+}
+span.size-x-large {
+	font-size: x-large;
+	font-weight: bold;
+}
+
+span.source {
+	background-color: #F6E3CE;
+	font-size: 12px;
+}
+
+
+p > a.hide,
+h1 > a.hide,
+h2 > a.hide,
+h3 > a.hide,
+h4 > a.hide,
+h5 > a.hide,
+h6 > a.hide
+{
+	display: none;
+}
+
+p:hover  > a.hide,
+h1:hover  > a.hide,
+h2:hover  > a.hide,
+h3:hover  > a.hide,
+h4:hover  > a.hide,
+h5:hover  > a.hide,
+h6:hover  > a.hide
+{
+	display: inline;
+}
+
+a:link { color: #0000FF }
+a:visited { color: #0000FF }
+
+td.center {
+	text-align: center;
+}
+td.clrBgTurq {
+	background-color: #00FFFF;/* Turquoise */
+	text-align: center;
+}
+
+
+/********* INLINE elements to define sentents and its parts *********/
+
+dfn.sentence {
+	margin-left: 20px;
+}
+
+dfn.verb {
+	color: #FF0000;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+dfn.vaSbj {
+	color: #006600;
+	font-weight: bold;
+}
+
+dfn.vaObj {
+	/* color: #0000FF; */
+}
+

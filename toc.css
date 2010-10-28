@@ -1,0 +1,65 @@
+/*
+ * version: 2010.10.17
+ */
+
+
+#idTocDivToc{
+	position:fixed;
+	top:0px;
+	left:0px;
+	bottom:0px;
+
+	background-color:#FFFFFA!important;
+	font-size:12px!important;
+	line-height:18px;
+	overflow:auto!important;
+	padding:4px;
+	text-align:left;
+	max-width:26%;
+}
+
+#idTocTree{
+	margin:0px;
+	padding:0px;
+}
+#idTocTree ul{	/* Sub menu groups */
+	margin-left:20px;	/* Left spacing */
+	padding-left:0px;
+	display:none;	/* Initially hide sub nodes */
+}
+#idTocTree li{
+	list-style-type:none;
+	vertical-align:middle;
+	white-space:nowrap;
+}
+#idTocTree li a{	/* Node links */
+	color:#000;
+	text-decoration:none;
+	font-family:arial;
+	font-size:12px;
+	padding-left:1px;
+}
+.classTocTreeHighlight {
+	background-color:yellow!important;
+}
+
+/* *********************** CONTENT ********************* */
+
+#idTocDivCntnt{
+	position:fixed;
+	top:0px;
+	left:26.5%;
+	bottom:0px;
+	right:0px;
+
+	border-left:9px solid #153E7E;
+	overflow:auto;
+	padding:10px;
+	text-align:left;
+	max-width:72%;
+	z-index:9999;
+}
+#idTocDivCntnt img,#idTocDivCntnt table{
+	max-width:100%!important;
+	overflow:auto;
+}
