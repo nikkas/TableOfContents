@@ -27,14 +27,14 @@
   <section id="idDefinition">
     <h1>Definition</h1>
     <p><b>Git-repository</b> is A directory in a computer WITH some files
-      on a subject AND their history(evolution) MANAGED with the <a href="#idGit">git-program</a>.</p>
+      on a subject we are working on AND their history(evolution) MANAGED with the <a href="#idGit">git-program</a>.</p>
     <p>Synonyms:
       <br/>* git-repo.</p>
     <p id="idGrContent">Content-of-Repo:
       <br/>The type of information (the subject) stored in the repo's files.</p>
     <p id="idGrFile">Files-of-Repo:
       <br/>The repository contains more files than the files we work on.
-      <br/>- <b>content-files</b> or "working-files" are the files
+      <br/>- "<b>working-files</b>" or "<b>content-files</b>" are the files
       we work on and contain our subject.</p>
     <p id="idGrDir">Directories-of-Repo:
       <br/>- the directory of the repo. The "base" directory|folder.
@@ -77,23 +77,47 @@
   </section>
   <section id="idGitCom">
     <h2>Git-Commands</h2>
-    <p></p>
+    <p>I present here the basic group of commands.</p>
   <section>
     <h3>Git-Repo-Creating-Commands</h3>
     <p>List:
-      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-init.html">git-init</a>	➞ Create a repository from an existing directory of files
-      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a>	➞ Copy a remote repository
-      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html">git-commit</a>	➞ Record changes to the repository.
+      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-init.html">git-init</a> ➞ Create a repository from an existing directory of files
+      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a> ➞ Copy a remote repository
+      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html">git-commit</a> ➞ Record changes to the repository.
+    </p>
+  </section>
+  <section>
+    <h3>Git-Committing-Commands</h3>
+    <p>List:
+      <br/>*
+    </p>
+  </section>
+  <section>
+    <h3>Git-Branching-Merging-Commands</h3>
+    <p>List:
+      <br/>*
+    </p>
+  </section>
+  <section>
+    <h3>Git-Informing-Commands</h3>
+    <p>List:
+      <br/>*
+    </p>
+  </section>
+  <section>
+    <h3>Git-Navigating-Commands</h3>
+    <p>List:
+      <br/>*
     </p>
   </section>
   <section>
     <h3>Git-Collaborating-Commands</h3>
     <p>List:
-      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a>	➞ Copy a remote repository
-      <br/>* git-remote	➞ Manage set of tracked repositories
-      <br/>* git-pull	➞ Fetch from and merge with another repository or a local branch
-      <br/>* git-fetch	➞ Download objects and refs from another repository
-      <br/>* git-push	➞ Update remote refs along with associated objects</p>
+      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a> ➞ Copy a remote repository
+      <br/>* git-remote ➞ Manage set of tracked repositories
+      <br/>* git-pull ➞ Fetch from and merge with another repository or a local branch
+      <br/>* git-fetch ➞ Download objects and refs from another repository
+      <br/>* git-push ➞ Update remote refs along with associated objects</p>
   </section>
   </section>
   </section>
@@ -102,46 +126,92 @@
     <h1>Git-Repo-Creating</h1>
     <p>A user, the first thing he|she wants to do is to create a repo:
       <br/>* <a href="#idGitInstallation">install</a> the Git-program.
-      <br/>* create a repository from an existing directory of files with <a href="http://www.kernel.org/pub/software/scm/git/docs/git-init.html">git-init</a> command or
+      <br/>* create a repository from an existing directory of <a href="#idGrFile">working-files</a> with <a href="http://www.kernel.org/pub/software/scm/git/docs/git-init.html">git-init</a> command or
       <br/>* copy a remote repository with <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a> command.</p>
   </section>
 
-  <section>
-    <h1>Git-Point-in-History-Creating</h1>
-    <p>Synonyms:
-      <br/>* git-commit,
-      <br/>* git-stage,
-      <br/>* git-snapshot.</p>
+  <section id="idCommitting">
+    <h1>Git-Point-in-History-Creating (Committing)</h1>
     <p>Description:
       <br/>History|time is a continuous entity. Of course git cannot record
       the history of our <a href="#idGrFile">working-files</a> continuously.
       The USER desides on which discrete point in time the program will store
-      the state|stage of our working-files. The set of all recorded
-      points-in-time is the "history of the repository".
-      <br/>In git terms, each recorded stage is called "commit" because
-      the name of the command they use to do it is called "commit".
-      The process of doing the above is called "committing" or
-      "staging" or "snapshotting".</p>
+      the state|stage of our working-files.
+      The set of all recorded points-in-time is the "history of the repository".</p>
+    <p>Definition:
+      <br/>* "<b>Commit</b>" they call any recorded stage of our working-files.
+      <br/>Synonyms: "stage", "snapshot".
+      <br/>They call it "commit" from the name of the command they use
+      to do this process.
+      <br/>* "<b>Committing</b>" or "staging" or "snapshotting" they call the process
+      of storing a stage in the evolution of working-files.</p>
+    <p>Warning:
+      <br/>Committing is NOT an automatic process. The user subjectively
+      decides when to do it. Also the user must tell to git which
+      of the changed working-files wants to record.</p>
+    <p>Commands:
+      <br/></p>
   </section>
 
-  <section>
+  <section id="idBranching">
     <h1>Git-Branching-Merging</h1>
-    <p></p>
+    <p>Description:
+      <br/>Recording points-in-time of the evolution of our working-files
+      (<a href="#idCommitting">committing</a>) is the first major feature of the git.
+      <br/>Its second major feature is its capability to create COPIES
+      of our <a href="#idGrFile">working-files</a>, in parallel with
+      our main working-files in order to experiment with, without
+      destroying our main working-files.</p>
+    <p>Definition:
+      <br/>* "<b>Branch</b>" they call any copy of our working-files,
+      stored in our repository.
+      <br/>* "<b>Master-branch</b>" or "master" they call the main working-files.
+      <br/>Git records stages not only of the master-branch but of any branch.</p>
+    <p>Merging:
+      <br/>Git does not stop on branching. Then it can merge the branches
+      with the master-branch, showing if there are conflicts.</p>
+    <p>Commands:
+      <br/></p>
   </section>
 
-  <section>
+  <section id="idInforming">
     <h1>Git-Informing</h1>
-    <p></p>
+    <p>Description:
+      <br/>As our work is developing and growing we must know our branches,
+      our <a href="idCommitting">commits</a>, changes after last commit, etc.
+      Git has commands and tools to inform us about all these.</p>
+    <p>Commands:
+      <br/>* status: ➞ List all files changed since last commit
+      <br/>* log: ➞ Show the history of commits
+      <br/>* diff: ➞ Find difference between commits </p>
   </section>
 
-  <section>
+  <section id="idNavigating">
     <h1>Git-Navigating</h1>
-    <p></p>
+    <p>Description:
+      <br/></p>
+    <p>Commands:
+      <br/></p>
   </section>
 
-  <section>
+  <section id="idCollaborating">
     <h1>Git-Collaborating</h1>
-    <p></p>
+    <p>Description:
+      <br/></p>
+    <p>General-Senario:
+      <br/>- you will do a number of commits locally,
+      <br/>- then fetch data from the online shared repository you cloned the project from to get up to date,
+      <br/>- merge any new work into the stuff you did,
+      <br/>- then push your changes back up.</p>
+    <p>Commands:
+      <br/></p>
+  </section>
+
+  <section id="idNext">
+    <h1>What-Next</h1>
+    <p>I have tried to give you the big-picture of the Git.
+      <br/>Now you have to learn the SPECIFICS of the commands and
+      of the tools git uses to do what you want to do.</p>
   </section>
 
   <footer>

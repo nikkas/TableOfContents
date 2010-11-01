@@ -4,21 +4,21 @@
 */
 
 body {
-	background-color: #FFFFF9;
+	background-color: #FFFFFA;
 	font-family: "Times New Roman", Dialog, Georgia, Times, serif;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 /*********** HEADING-ELEMENTS ***********************/
 header > h1 {
-	background-color: #BDEDFF;
+	background-color: #00FFFF;
 	border: 1px solid #000000;
 	color: #000000;
 	font-family: "Times New Roman", Georgia, Times, serif;
 	font-size: 26px;
 	font-weight: bold;
 	margin-bottom: 20px;
-	margin-top: 0px;
+	margin-top: 15px;
 	padding: 0 0 10px 0; /*top right bottom left*/
 	text-align: center;
 }
@@ -108,7 +108,7 @@ p.h8 {
 /************ FOOTER-ELEMENTS ********************/
 
 footer {
-	background-color: #F8ECE0;
+	background-color: #F0FFFF;
 	border-top: 2px solid #000000;
 	color: #000000;
 	font-family: serif;
@@ -134,8 +134,8 @@ footer > address {
 	/************ PARAGRAPH-ELEMENTS ********************/
 
 code {
-	background: #000000;
-	color: #FFFFFF;
+	background: #FFFFC0;
+	color: #000000;
 }
 
 p {
