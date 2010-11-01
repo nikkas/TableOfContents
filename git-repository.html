@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Git-Repository</title>
+  <meta name="content-type" content="text/html;charset=UTF-8"/>
   <link href="css-html5-2010.10.31.css" rel="stylesheet" type="text/css"/>
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -33,7 +34,8 @@
       <br/>The type of information (the subject) stored in the repo's files.</p>
     <p id="idGrFile">Files-of-Repo:
       <br/>The repository contains more files than the files we work on.
-      <br/>- <b>content-files</b> are the files that contain our subject we work on.</p>
+      <br/>- <b>content-files</b> or "working-files" are the files
+      we work on and contain our subject.</p>
     <p id="idGrDir">Directories-of-Repo:
       <br/>- the directory of the repo. The "base" directory|folder.
       <br/>- the ".git" directory, which holds the history.
@@ -58,39 +60,68 @@
       <br/>* git,</p>
     <p>WebSite:
       <a href="http://git-scm.com">http://git-scm.com</a>/</p>
-  <section>
+  <section id="idGitInstallation">
     <h2>Git-Instalation</h2>
-    <p>TableOfContents to become and a wysiwig editor with fulltext search, like <a href="http://htmlmgr.sourceforge.net/">HtmlMgr</a>.</p>
+    <p>Unix:
+      <br/>* On Ubuntu distribution, you may install git using the following command
+      <br/><code>$ sudo apt-get install git-core</code>
+      <br/>* on Fedora distribution, you may install git using the following command
+      <br/><code>$ sudo yum install git</code>.</p>
+    <p>Windows:
+      <br/>* <a href="http://code.google.com/p/msysgit/">http://code.google.com/p/msysgit/</a>.</p>
   </section>
-  <section>
+  <section id="idGitDoc">
     <h2>Git-Documentation</h2>
     <p>Official:
       <a href="http://git-scm.com/documentation">http://git-scm.com/documentation</a>.</p>
   </section>
-  <section>
+  <section id="idGitCom">
     <h2>Git-Commands</h2>
     <p></p>
   <section>
     <h3>Git-Repo-Creating-Commands</h3>
     <p>List:
-      <br/>* git clone	> Clone a repository into a new directory
-      <br/>* git init >
+      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-init.html">git-init</a>	➞ Create a repository from an existing directory of files
+      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a>	➞ Copy a remote repository
+      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html">git-commit</a>	➞ Record changes to the repository.
+    </p>
   </section>
   <section>
     <h3>Git-Collaborating-Commands</h3>
     <p>List:
-      <br/>* git clone	> Clone a repository into a new directory
-      <br/>* git remote	> Manage set of tracked repositories
-      <br/>* git pull	> Fetch from and merge with another repository or a local branch
-      <br/>* git fetch	> Download objects and refs from another repository
-      <br/>* git push	> Update remote refs along with associated objects</p>
+      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a>	➞ Copy a remote repository
+      <br/>* git-remote	➞ Manage set of tracked repositories
+      <br/>* git-pull	➞ Fetch from and merge with another repository or a local branch
+      <br/>* git-fetch	➞ Download objects and refs from another repository
+      <br/>* git-push	➞ Update remote refs along with associated objects</p>
   </section>
   </section>
   </section>
 
+  <section id="idCreating">
+    <h1>Git-Repo-Creating</h1>
+    <p>A user, the first thing he|she wants to do is to create a repo:
+      <br/>* <a href="#idGitInstallation">install</a> the Git-program.
+      <br/>* create a repository from an existing directory of files with <a href="http://www.kernel.org/pub/software/scm/git/docs/git-init.html">git-init</a> command or
+      <br/>* copy a remote repository with <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a> command.</p>
+  </section>
+
   <section>
-    <h1>Git-Point-in-History</h1>
-    <p></p>
+    <h1>Git-Point-in-History-Creating</h1>
+    <p>Synonyms:
+      <br/>* git-commit,
+      <br/>* git-stage,
+      <br/>* git-snapshot.</p>
+    <p>Description:
+      <br/>History|time is a continuous entity. Of course git cannot record
+      the history of our <a href="#idGrFile">working-files</a> continuously.
+      The USER desides on which discrete point in time the program will store
+      the state|stage of our working-files. The set of all recorded
+      points-in-time is the "history of the repository".
+      <br/>In git terms, each recorded stage is called "commit" because
+      the name of the command they use to do it is called "commit".
+      The process of doing the above is called "committing" or
+      "staging" or "snapshotting".</p>
   </section>
 
   <section>
@@ -115,7 +146,7 @@
 
   <footer>
     <p>VERSIONS:
-      <br/>* Current: 2010.10.31
+      <br/>* Current: 2010.11.01
       <br/>* Creation: 2010.10.31</p>
     <address>email: my google user-name is "kaseluris.nikos"</address>
   </footer>
