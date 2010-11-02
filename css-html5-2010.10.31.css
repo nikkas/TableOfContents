@@ -134,8 +134,9 @@ footer > address {
 	/************ PARAGRAPH-ELEMENTS ********************/
 
 code {
-	background: #FFFFC0;
+	background: #FFFFFF;
 	color: #000000;
+	border: 1px solid #98AFC7;
 }
 
 p {
