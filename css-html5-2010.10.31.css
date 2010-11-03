@@ -10,15 +10,19 @@ body {
 }
 
 /*********** HEADING-ELEMENTS ***********************/
+header {
+	background-color: #F0FFFF;
+}
+
 header > h1 {
 	background-color: #00FFFF;
-	border: 1px solid #000000;
+	border-top: 3px solid #000000;
 	color: #000000;
 	font-family: "Times New Roman", Georgia, Times, serif;
 	font-size: 26px;
 	font-weight: bold;
 	margin-bottom: 20px;
-	margin-top: 15px;
+	margin-top: 12px;
 	padding: 0 0 10px 0; /*top right bottom left*/
 	text-align: center;
 }
@@ -137,6 +141,7 @@ code {
 	background: #FFFFFF;
 	color: #000000;
 	border: 1px solid #98AFC7;
+	font-size: 14px;
 }
 
 p {

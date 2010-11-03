@@ -17,7 +17,7 @@
 </head>
 <body>
   <header id="idHeader">
-    <h1>Git Repository</h1>
+    <h1>Git Repository (draft)</h1>
     <p class="center">This file is best viewed with the <a href="https://chrome.google.com/extensions/detail/eeknhipceeelbgdbcmchicoaoalfdnhi">TableOfContents</a> chrome-extension.</p>
     <p>I wrote this file because I felt confused when I started learning Git.
       This info is written from a (old!) teacher's perspective.
@@ -78,7 +78,7 @@
   <section id="idGitCom">
     <h2>Git-Commands</h2>
     <p>I present here the basic group of commands.</p>
-  <section>
+  <section id="idGitComRepo">
     <h3>Git-Repo-Creating-Commands</h3>
     <p>List:
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-init.html">git-init</a> = Create repository from an existing directory of working-files
@@ -86,7 +86,7 @@
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html">git-commit</a> = Record changes to the repository.
     </p>
   </section>
-  <section>
+  <section id="idGitComCommit">
     <h3>Git-Committing-Commands</h3>
     <p>List:
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-add.html">git-add</a> = Add files to be included in next commit
@@ -98,7 +98,7 @@
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-mv.html">git-mv</a> = Move or rename a file, a directory, or a symlink
     </p>
   </section>
-  <section>
+  <section id="idGitComBranch">
     <h3>Git-Branching-Merging-Commands</h3>
     <p>List:
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html">git-branch</a> = List, create, or delete branches
@@ -109,15 +109,16 @@
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-stash.html">git-stash</a> = Stores all changes in temporary location
     </p>
   </section>
-  <section>
+  <section id="idGitComInfo">
     <h3>Git-Informing-Commands</h3>
     <p>List:
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-status.html">git-status</a> = List all files changed since last commit
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-log.html">git-log</a> = Show the history of commits
-      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-diff.html">git-diff</a> = Find difference between commits </p>
+      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-diff.html">git-diff</a> = Find difference between commits
+      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-show.html">git-show</a> = Show various types of objects
     </p>
   </section>
-  <section>
+  <section id="idGitComNav">
     <h3>Git-Navigating-Commands</h3>
     <p>List:
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html">git-checkout</a> = Update files in working-tree to match what specified
@@ -125,7 +126,7 @@
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-stash.html">git-stash</a> = Stores all changes in temporary location
     </p>
   </section>
-  <section>
+  <section id="idGitComColl">
     <h3>Git-Collaborating-Commands</h3>
     <p>List:
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a> = Copy a remote repository
@@ -143,10 +144,11 @@
       <br/>* <a href="#idGitInstallation">install</a> the Git-program.
       <br/>* create a repository from an existing directory of <a href="#idGrFile">working-files</a> with <a href="http://www.kernel.org/pub/software/scm/git/docs/git-init.html">git-init</a> command or
       <br/>* copy a remote repository with <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a> command.</p>
+    <p><a href="#idGitComRepo">Commands</a>:</p>
   </section>
 
   <section id="idCommitting">
-    <h1>Git-Point-in-History-Creating (Committing)</h1>
+    <h1>Git-Versioning (Committing)</h1>
     <p>Description:
       <br/>History|time is a continuous entity. Of course git cannot record
       the history of our <a href="#idGrFile">working-files</a> continuously.
@@ -155,7 +157,7 @@
       The set of all recorded points-in-time is the "history of the repository".</p>
     <p>Definition:
       <br/>* "<b>Commit</b>" they call any recorded stage of our working-files.
-      <br/>Synonyms: "stage", "snapshot".
+      <br/>Synonyms: "version", "stage", "snapshot".
       <br/>They call it "commit" from the name of the command they use
       to do this process.
       <br/>* "<b>Committing</b>" or "staging" or "snapshotting" they call the process
@@ -164,8 +166,7 @@
       <br/>Committing is NOT an automatic process. The user subjectively
       decides when to do it. Also the user must tell to git which
       of the changed working-files wants to record.</p>
-    <p>Commands:
-      <br/></p>
+    <p><a href="#idGitComCommit">Commands</a>:</p>
   </section>
 
   <section id="idBranching">
@@ -185,8 +186,7 @@
     <p>Merging:
       <br/>Git does not stop on branching. Then it can merge the branches
       with the master-branch, showing if there are conflicts.</p>
-    <p>Commands:
-      <br/></p>
+    <p><a href="#idGitComBranch">Commands</a>:</p>
   </section>
 
   <section id="idInforming">
@@ -195,18 +195,14 @@
       <br/>As our work is developing and growing we must know our branches,
       our <a href="idCommitting">commits</a>, changes after last commit, etc.
       Git has commands and tools to inform us about all these.</p>
-    <p>Commands:
-      <br/>* status = List all files changed since last commit
-      <br/>* log = Show the history of commits
-      <br/>* diff = Find difference between commits </p>
+    <p><a href="#idGitComInfo">Commands</a>:</p>
   </section>
 
   <section id="idNavigating">
     <h1>Git-Navigating</h1>
     <p>Description:
       <br/></p>
-    <p>Commands:
-      <br/></p>
+    <p><a href="#idGitComNav">Commands</a>:</p>
   </section>
 
   <section id="idCollaborating">
@@ -218,8 +214,7 @@
       <br/>- then fetch data from the online shared repository you cloned the project from to get up to date,
       <br/>- merge any new work into the stuff you did,
       <br/>- then push your changes back up.</p>
-    <p>Commands:
-      <br/></p>
+    <p><a href="#idGitComColl">Commands</a>:</p>
   </section>
 
   <section id="idNext">
@@ -231,9 +226,13 @@
 
   <footer>
     <p>VERSIONS:
-      <br/>* Current: 2010.11.01
+      <br/>* Current: 2010.11.03 (draft)
       <br/>* Creation: 2010.10.31</p>
     <address>email: my google user-name is "kaseluris.nikos"</address>
+    <p>TableOfContents-Git-Repository at GitHub:
+      <br/>* <a href="http://nikkas.github.com/TableOfContents/">http://nikkas.github.com/TableOfContents/</a>.</p>
+    <p>Author-Page:
+      <br/>* <a href="http://users.otenet.gr/~nikkas">http://users.otenet.gr/~nikkas</a>/</p>
   </footer>
 </body>
 </html>
