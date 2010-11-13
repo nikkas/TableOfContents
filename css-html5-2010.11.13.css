@@ -1,5 +1,5 @@
 /*
- * version: 2010.10.31
+ * version: 2010.11.13
  * HoKoNoUmo's style for HTML5
 */
 
@@ -11,11 +11,11 @@ body {
 
 /*********** HEADING-ELEMENTS ***********************/
 header {
-	background-color: #F0FFFF;
+	background-color: #FAFFFF;
 }
 
 header > h1 {
-	background-color: #00FFFF;
+	background-color: #CDEFFF;
 	border-top: 3px solid #000000;
 	color: #000000;
 	font-family: "Times New Roman", Georgia, Times, serif;
@@ -28,7 +28,7 @@ header > h1 {
 }
 
 h1 {
-	background-color: #BDEDFF; /*#F6E3CE;#F5FFFA;#F6E3CE;#FFF5EE;#EEECCC;*/
+	background-color: #CDEFFF;
 	border-top: 2px solid #000000;
 	color: #000000;
 	font-family: Georgia, "Times New Roman", Times, serif;
@@ -112,8 +112,8 @@ p.h8 {
 /************ FOOTER-ELEMENTS ********************/
 
 footer {
-	background-color: #F0FFFF;
-	border-top: 2px solid #000000;
+	background-color: #CDEFFF;
+	border-bottom: 2px solid #000000;
 	color: #000000;
 	font-family: serif;
 	font-size: 12px;
@@ -233,27 +233,31 @@ span.source {
 	font-size: 12px;
 }
 
-
-p > a.hide,
+/* hide-class: a-element */
 h1 > a.hide,
 h2 > a.hide,
 h3 > a.hide,
 h4 > a.hide,
 h5 > a.hide,
-h6 > a.hide
+h6 > a.hide,
+p > a.hide,
+address > a.hide
 {
 	display: none;
 }
 
-p:hover  > a.hide,
 h1:hover  > a.hide,
 h2:hover  > a.hide,
 h3:hover  > a.hide,
 h4:hover  > a.hide,
 h5:hover  > a.hide,
-h6:hover  > a.hide
+h6:hover  > a.hide,
+p:hover  > a.hide,
+address:hover  > a.hide
 {
 	display: inline;
+	color: gray;
+	text-decoration:none;
 }
 
 a:link { color: #0000FF }
