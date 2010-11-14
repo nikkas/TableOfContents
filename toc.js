@@ -1,5 +1,5 @@
 /*
- * version: 2010.10.23
+ * version: 2010.11.14
  * toc.js - the content-scripts of TableOfContents-extension.
  *
  * Copyright (C) 2010 Kaseluris-Nikos-1959,
@@ -71,20 +71,20 @@ chrome.extension.onRequest.addListener(
       if(tocNoPowerstate===1){
         tocNoIdTreeLi=0;
         var elBody=document.body;
-        /* set on cntnt the old-body */
+        /* set on DivCntnt the old-body */
         var tocElDivCntnt=document.createElement("div");
         tocElDivCntnt.id="idTocDivCntnt";
         tocElDivCntnt.innerHTML=tocElBodyInner;
         /* remove from old-body its elements */
         elBody.innerHTML="";
         elBody.appendChild(tocElDivCntnt);
+
         /* insert toc */
         var tocElDivToc=document.createElement("div");
         tocElDivToc.id="idTocDivToc";
         var elOutline=fH5oGetOutlineHtml();
         tocElDivToc.innerHTML=elOutline;
         tocElDivToc.getElementsByTagName("ul")[0].setAttribute('id','idTocTree');
-//        $(tocElDivToc).find("ul").attr('id','idTocTree');
         /* insert collaplse-button */
         var elClpsAll=document.createElement("input");
         elClpsAll.setAttribute("type","button");
@@ -108,8 +108,13 @@ chrome.extension.onRequest.addListener(
         elP.innerHTML="ToC: "+document.title;
         elP.title="© 2010 Kaseluris-Nikos-1959";
         tocElDivToc.insertBefore(elP,tocElDivToc.firstChild);
-//        tocElDivToc.getElementById("p").style.textDecoration="underline";
         $(tocElDivToc).find("p").css('font-size','16px');
+
+        /* toc: add note at the end */
+        var elPNote=document.createElement("p");
+        elPNote.innerHTML="Note: By clicking on a HEADING, you see on the expandable-toc-tree its position.";
+        tocElDivToc.appendChild(elPNote);
+
         $(tocElDivToc).find("a").each(
           /* what to do on clicking a link in toc */
           function(){
@@ -156,6 +161,7 @@ chrome.extension.onRequest.addListener(
         );
         elBody.insertBefore(tocElDivToc,elBody.firstChild);
         fInitTree();
+        fExpandFirst('idTocTree');
         /* go to existing-address */
         var sUrl=document.URL;
         if(sUrl.indexOf("#")>=0){
@@ -197,6 +203,11 @@ function fH5oGotoId(id){
 
 
 /* Returns an html-ul-element that holds the outline.
+ * <ul id="idTocTree">
+ *   <li id="idTocTreeLI1"><img src="...png"><a href="#h5o-1" title="...">...</a>
+ *   ...
+ *   </li>
+ * </ul>
  * From HTML5-Outliner: https://chrome.google.com/extensions/detail/afoibpobokebhgfnknfndkgemglggomo */
 function fH5oGetOutlineHtml(){
   var h5oElmCurrentOutlinee, h5oElmDocumentRoot, h5oSemSectionCurrent,
@@ -266,7 +277,12 @@ function fH5oGetOutlineHtml(){
         elmHeading=elmHeading.getElementsByTagName('h'+(-fH5oGetHeadingElmRank(elmHeading)))[0];
       }
       /* @todo: try to resolve text content from img[alt] or *[title] */
-      return elmHeading.textContent || elmHeading.innerText || "<i>No text content inside "+elmHeading.nodeName+"</i>";
+      var sTxt=elmHeading.textContent;
+      /* removes from heading the "hide"-class content */
+      sTxt=sTxt.replace(/\n *¶$/, "");
+      return sTxt
+        || elmHeading.innerText
+        || "<i>No text content inside "+elmHeading.nodeName+"</i>";
     }
     return ""+elmHeading;
   }
@@ -579,6 +595,16 @@ function fExpandAll(idTree){
   }
 }
 
+/* Expands the first children. */
+function fExpandFirst(idTree){
+  var tocTreeLIs=document.getElementById(idTree).getElementsByTagName('li');
+  /* expand the first ul-element */
+  var subItems=tocTreeLIs[0].getElementsByTagName('ul');
+  if(subItems.length>0 && subItems[0].style.display!='block'){
+    fShowHideNode(false,tocTreeLIs[0].id);
+  }
+}
+
 /* expands all the parents only, of an element */
 function fExpandParent(elm){
   var elmImg;
@@ -632,7 +658,7 @@ function fShowHideNode(e,inputId)
   return false;
 }
 
-/* Inserts images before a-elements win onclick events. Sets id on li.
+/* Inserts images with onclick events, before a-elements. Sets id on li.
  * Modified from http://www.dhtmlgoodies.com/ */
 function fInitTree()
 {

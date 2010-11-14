@@ -1,7 +1,7 @@
 {
-  "version": "2010.10.23.1",
+  "version": "2010.11.14.2",
   "name": "TableOfContents",
-  "description": "Creates the Table-of-Contents of selected tab.",
+  "description": "Creates an expandable Table-of-Contents of a selected tab.",
   "background_page": "toc-background.html",
 
   "content_scripts": [{
