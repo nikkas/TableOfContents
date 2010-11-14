@@ -3,7 +3,7 @@
 <head>
   <title>Git-Repository</title>
   <meta name="content-type" content="text/html;charset=UTF-8"/>
-  <link href="css-html5-2010.10.31.css" rel="stylesheet" type="text/css"/>
+  <link href="css-html5-2010.11.14.css" rel="stylesheet" type="text/css"/>
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-19285371-3']);
@@ -16,79 +16,104 @@
   </script>
 </head>
 <body>
-  <header id="idHeader">
-    <h1>Git Repository (draft)</h1>
-    <p class="center">This file is best viewed with the <a href="https://chrome.google.com/extensions/detail/eeknhipceeelbgdbcmchicoaoalfdnhi">TableOfContents</a> chrome-extension.</p>
-    <p>I wrote this file because I felt confused when I started learning Git.
+  <header id="idHeaderH1">
+    <h1 id="idHeaderH1">Git Repository (draft)
+      <a class="hide" href="#idHeaderH1" title="idHeaderH1">¶</a></h1>
+    <p id="idHeaderH1P1" class="center">This file is best viewed with the <a href="https://chrome.google.com/extensions/detail/eeknhipceeelbgdbcmchicoaoalfdnhi">TableOfContents</a> chrome-extension.
+      <a class="hide" href="#idHeaderH1P1" title="idHeaderH1P1">¶</a></p>
+    <p id="idHeaderH1P2">I wrote this file because I felt confused when I started learning Git.
       This info is written from a (old!) teacher's perspective.
-      <br/>I am learning Git, so do not expect this guide to be complete.</p>
+      <br/>I am learning Git, so do not expect this guide to be complete.
+      <a class="hide" href="#idHeaderH1P2" title="idHeaderH1P2">¶</a></p>
   </header>
 
-  <section id="idDefinition">
-    <h1>Definition</h1>
-    <p><b>Git-repository</b> is A directory in a computer WITH some files
-      on a subject we are working on AND their history(evolution) MANAGED with the <a href="#idGit">git-program</a>.</p>
-    <p>Synonyms:
-      <br/>* git-repo.</p>
+  <section id="idDefinitionH1">
+    <h1 id="idDefinitionH1">Definition
+      <a class="hide" href="#idDefinitionH1" title="idDefinitionH1">¶</a></h1>
+    <p id="idDefinitionH1P1"><b>Git-repository</b> is A directory in a computer WITH some files
+      on a subject we are working on AND their history(evolution) MANAGED with the <a href="#idGit">git-program</a>.
+      <a class="hide" href="#idDefinitionH1P1" title="idDefinitionH1P1">¶</a></p>
+    <p id="idDefinitionH1P2">Synonyms:
+      <br/>* git-repo.
+      <a class="hide" href="#idDefinitionH1P2" title="idDefinitionH1P2">¶</a></p>
     <p id="idGrContent">Content-of-Repo:
-      <br/>The type of information (the subject) stored in the repo's files.</p>
+      <br/>The type of information (the subject) stored in the repo's files.
+      <a class="hide" href="#idGrContent" title="idGrContent">¶</a></p>
     <p id="idGrFile">Files-of-Repo:
       <br/>The repository contains more files than the files we work on.
       <br/>- "<b>working-files</b>" or "<b>content-files</b>" are the files
-      we work on and contain our subject.</p>
+      we work on and contain our subject.
+      <a class="hide" href="#idGrFile" title="idGrFile">¶</a></p>
     <p id="idGrDir">Directories-of-Repo:
       <br/>- the directory of the repo. The "base" directory|folder.
       <br/>- the ".git" directory, which holds the history.
       <br/>- the "working-tree", which is everything else except the .git-dir
       inside the "base-dir" which holds the content-files IN A SPECIFIC
-      POINT|STAGE IN HISTORY.</p>
+      POINT|STAGE IN HISTORY.
+      <a class="hide" href="#idGrDir" title="idGrDir">¶</a></p>
   </section>
 
-  <section id="idGitProject">
-    <h1>Git-Project</h1>
-    <p>Definition:
-      <br/>A set of git-repositories around the net on the same <a href="#idGrFile">source|content-files</a>.</p>
-    <p>Synonyms:
+  <section id="idGitProjectH1">
+    <h1 id="idGitProjectH1">Git-Project
+      <a class="hide" href="#idGitProjectH1" title="idGitProjectH1">¶</a></h1>
+    <p id="idGitProjectH1P1">Definition:
+      <br/>A set of git-repositories around the net on the same <a href="#idGrFile">source|content-files</a>.
+      <a class="hide" href="#idGitProjectH1P1" title="idGitProjectH1P1">¶</a></p>
+    <p id="idGitProjectH1P2">Synonyms:
       <br/>Unfortunately, you will find with the same term "git-project"
-      to mean a "git-repository".</p>
+      to mean a "git-repository".
+      <a class="hide" href="#idGitProjectH1P2" title="idGitProjectH1P2">¶</a></p>
   </section>
 
-  <section id="idGit">
-    <h1>Git-Program</h1>
-    <p>The Git-program is a distributed version-control-system developed by Junio Hamano and Linus Torvalds mainly used for source-code-managment.</p>
-    <p>Synonyms:
-      <br/>* git,</p>
-    <p>WebSite:
-      <a href="http://git-scm.com">http://git-scm.com</a>/</p>
-  <section id="idGitInstallation">
-    <h2>Git-Instalation</h2>
-    <p>Unix:
+  <section id="idGitH1">
+    <h1 id="idGitH1">Git-Program
+      <a class="hide" href="#idGitH1" title="idGitH1">¶</a></h1>
+    <p id="idGitH1P1">The Git-program is a distributed version-control-system developed by Junio Hamano and Linus Torvalds mainly used for source-code-managment.
+      <a class="hide" href="#idGitH1P1" title="idGitH1P1">¶</a></p>
+    <p id="idGitH1P2">Synonyms:
+      <br/>* git,
+      <a class="hide" href="#idGitH1P2" title="idGitH1P2">¶</a></p>
+    <p id="idGitH1P3">WebSite:
+      <a href="http://git-scm.com">http://git-scm.com</a>/
+      <a class="hide" href="#idGitH1P3" title="idGitH1P3">¶</a></p>
+  <section id="idGitInstallationH2">
+    <h2 id="idGitInstallationH2">Git-Instalation
+      <a class="hide" href="#idGitInstallationH2" title="idGitInstallationH2">¶</a></h2>
+    <p id="idGitInstallationH2P1">Unix:
       <br/>* On Ubuntu distribution, you may install git using the following command
       <br/><code>$ sudo apt-get install git-core</code>
       <br/>* on Fedora distribution, you may install git using the following command
-      <br/><code>$ sudo yum install git</code>.</p>
-    <p>Windows:
-      <br/>* <a href="http://code.google.com/p/msysgit/">http://code.google.com/p/msysgit/</a>.</p>
+      <br/><code>$ sudo yum install git</code>.
+      <a class="hide" href="#idGitInstallationH2P1" title="idGitInstallationH2P1">¶</a></p>
+    <p id="idGitInstallationH2P2">Windows:
+      <br/>* <a href="http://code.google.com/p/msysgit/">http://code.google.com/p/msysgit/</a>.
+      <a class="hide" href="#idGitInstallationH2P2" title="idGitInstallationH2P2">¶</a></p>
   </section>
-  <section id="idGitDoc">
-    <h2>Git-Documentation</h2>
-    <p>Official:
-      <a href="http://git-scm.com/documentation">http://git-scm.com/documentation</a>.</p>
+  <section id="idGitDocH2">
+    <h2 id="idGitDocH2">Git-Documentation
+      <a class="hide" href="#idGitDocH2" title="idGitDocH2">¶</a></h2>
+    <p id="idGitDocH2P1">Official:
+      <a href="http://git-scm.com/documentation">http://git-scm.com/documentation</a>.
+      <a class="hide" href="#idGitDocH2P1" title="idGitDocH2P1">¶</a></p>
   </section>
-  <section id="idGitCom">
-    <h2>Git-Commands</h2>
-    <p>I present here the basic group of commands.</p>
-  <section id="idGitComRepo">
-    <h3>Git-Repo-Creating-Commands</h3>
-    <p>List:
+  <section id="idGitComH2">
+    <h2 id="idGitComH2">Git-Commands
+      <a class="hide" href="#idGitComH2" title="idGitComH2">¶</a></h2>
+    <p id="idGitComH2P1">I present here the basic group of commands.
+      <a class="hide" href="#idGitComH2P1" title="idGitComH2P1">¶</a></p>
+  <section id="idGitComRepoH3">
+    <h3 id="idGitComRepoH3">Git-Repo-Creating-Commands
+      <a class="hide" href="#idGitComRepoH3" title="idGitComRepoH3">¶</a></h3>
+    <p id="idGitComRepoH3P1">List:
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-init.html">git-init</a> = Create repository from an existing directory of working-files
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a> = Copy a remote repository
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html">git-commit</a> = Record changes to the repository.
-    </p>
+      <a class="hide" href="#idGitComRepoH3P1" title="idGitComRepoH3P1">¶</a></p>
   </section>
-  <section id="idGitComCommit">
-    <h3>Git-Committing-Commands</h3>
-    <p>List:
+  <section id="idGitComCommitH3">
+    <h3 id="idGitComCommitH3">Git-Committing-Commands
+      <a class="hide" href="#idGitComCommitH3" title="idGitComCommitH3">¶</a></h3>
+    <p id="idGitComCommitH3P1">List:
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-add.html">git-add</a> = Add files to be included in next commit
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html">git-commit</a> = Record changes to the repository
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-status.html">git-status</a> = List files changed since last commit
@@ -96,143 +121,177 @@
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-reset.html">git-reset</a> = Go to previous states
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-rm.html">git-rm</a> = Remove files from the working tree and from the index
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-mv.html">git-mv</a> = Move or rename a file, a directory, or a symlink
-    </p>
+      <a class="hide" href="#idGitComCommitH3P1" title="idGitComCommitH3P1">¶</a></p>
   </section>
-  <section id="idGitComBranch">
-    <h3>Git-Branching-Merging-Commands</h3>
-    <p>List:
+  <section id="idGitComBranchH3">
+    <h3 id="idGitComBranchH3">Git-Branching-Merging-Commands
+      <a class="hide" href="#idGitComBranchH3" title="idGitComBranchH3">¶</a></h3>
+    <p id="idGitComBranchH3P1">List:
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html">git-branch</a> = List, create, or delete branches
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-merge.html">git-merge</a> = Join two or more development histories together
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html">git-checkout</a> = Update files in working-tree to match what specified
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-log.html">git-log</a> = Show history of commits
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">git-tag</a> = Give name to commit
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-stash.html">git-stash</a> = Stores all changes in temporary location
-    </p>
+      <a class="hide" href="#idGitComBranchH3P1" title="idGitComBranchH3P1">¶</a></p>
   </section>
-  <section id="idGitComInfo">
-    <h3>Git-Informing-Commands</h3>
-    <p>List:
+  <section id="idGitComInfoH3">
+    <h3 id="idGitComInfoH3">Git-Informing-Commands
+      <a class="hide" href="#idGitComInfoH3" title="idGitComInfoH3">¶</a></h3>
+    <p id="idGitComInfoH3P1">List:
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-status.html">git-status</a> = List all files changed since last commit
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-log.html">git-log</a> = Show the history of commits
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-diff.html">git-diff</a> = Find difference between commits
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-show.html">git-show</a> = Show various types of objects
-    </p>
+      <a class="hide" href="#idGitComInfoH3P1" title="idGitComInfoH3P1">¶</a></p>
   </section>
-  <section id="idGitComNav">
-    <h3>Git-Navigating-Commands</h3>
-    <p>List:
+  <section id="idGitComNavH3">
+    <h3 id="idGitComNavH3">Git-Navigating-Commands
+      <a class="hide" href="#idGitComNavH3" title="idGitComNavH3">¶</a></h3>
+    <p id="idGitComNavH3P1">List:
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html">git-checkout</a> = Update files in working-tree to match what specified
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">git-tag</a> = Give name to commit
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-stash.html">git-stash</a> = Stores all changes in temporary location
-    </p>
+      <a class="hide" href="#idGitComNavH3P1" title="idGitComNavH3P1">¶</a></p>
   </section>
-  <section id="idGitComColl">
-    <h3>Git-Collaborating-Commands</h3>
-    <p>List:
+  <section id="idGitComCollH3">
+    <h3 id="idGitComCollH3">Git-Collaborating-Commands
+      <a class="hide" href="#idGitComCollH3" title="idGitComCollH3">¶</a></h3>
+    <p id="idGitComCollH3P1">List:
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a> = Copy a remote repository
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-remote.html">git-remote</a> = Manage set of tracked repositories
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">git-pull</a> = Fetch from and merge with another repository or a local branch
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html">git-fetch</a> = Download objects and refs from another repository
-      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html">git-push</a> = Update remote refs along with associated objects</p>
+      <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html">git-push</a> = Update remote refs along with associated objects
+      <a class="hide" href="#idGitComCollH3P1" title="idGitComCollH3P1">¶</a></p>
   </section>
   </section>
   </section>
 
-  <section id="idCreating">
-    <h1>Git-Repo-Creating</h1>
-    <p>A user, the first thing he|she wants to do is to create a repo:
+  <section id="idCreatingH1">
+    <h1 id="idCreatingH1">Git-Repo-Creating
+      <a class="hide" href="#idCreatingH1" title="idCreatingH1">¶</a></h1>
+    <p id="idCreatingH1P1">A user, the first thing he|she wants to do is to create a repo:
       <br/>* <a href="#idGitInstallation">install</a> the Git-program.
       <br/>* create a repository from an existing directory of <a href="#idGrFile">working-files</a> with <a href="http://www.kernel.org/pub/software/scm/git/docs/git-init.html">git-init</a> command or
-      <br/>* copy a remote repository with <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a> command.</p>
-    <p><a href="#idGitComRepo">Commands</a>:</p>
+      <br/>* copy a remote repository with <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a> command.
+      <a class="hide" href="#idCreatingH1P1" title="idCreatingH1P1">¶</a></p>
+    <p id="idCreatingH1P2"><a href="#idGitComRepo">Commands</a>:
+      <a class="hide" href="#idCreatingH1P2" title="idCreatingH1P2">¶</a></p>
   </section>
 
-  <section id="idCommitting">
-    <h1>Git-Versioning (Committing)</h1>
-    <p>Description:
+  <section id="idCommittingH1">
+    <h1 id="idCommittingH1">Git-Versioning (Committing)
+      <a class="hide" href="#idCommittingH1" title="idCommittingH1">¶</a></h1>
+    <p id="idCommittingH1P1">Description:
       <br/>History|time is a continuous entity. Of course git cannot record
       the history of our <a href="#idGrFile">working-files</a> continuously.
       The USER desides on which discrete point in time the program will store
       the state|stage of our working-files.
-      The set of all recorded points-in-time is the "history of the repository".</p>
-    <p>Definition:
+      The set of all recorded points-in-time is the "history of the repository".
+      <a class="hide" href="#idCommittingH1P1" title="idCommittingH1P1">¶</a></p>
+    <p id="idCommittingH1P2">Definition:
       <br/>* "<b>Commit</b>" they call any recorded stage of our working-files.
       <br/>Synonyms: "version", "stage", "snapshot".
       <br/>They call it "commit" from the name of the command they use
       to do this process.
       <br/>* "<b>Committing</b>" or "staging" or "snapshotting" they call the process
-      of storing a stage in the evolution of working-files.</p>
-    <p>Warning:
+      of storing a stage in the evolution of working-files.
+      <a class="hide" href="#idCommittingH1P2" title="idCommittingH1P2">¶</a></p>
+    <p id="idCommittingH1P3">Warning:
       <br/>Committing is NOT an automatic process. The user subjectively
       decides when to do it. Also the user must tell to git which
-      of the changed working-files wants to record.</p>
-    <p><a href="#idGitComCommit">Commands</a>:</p>
+      of the changed working-files wants to record.
+      <a class="hide" href="#idCommittingH1P3" title="idCommittingH1P3">¶</a></p>
+    <p id="idCommittingH1P4"><a href="#idGitComCommit">Commands</a>:
+      <a class="hide" href="#idCommittingH1P4" title="idCommittingH1P4">¶</a></p>
   </section>
 
-  <section id="idBranching">
-    <h1>Git-Branching-Merging</h1>
-    <p>Description:
+  <section id="idBranchingH1">
+    <h1 id="idBranchingH1">Git-Branching-Merging
+      <a class="hide" href="#idBranchingH1" title="idBranchingH1">¶</a></h1>
+    <p id="idBranchingH1P1">Description:
       <br/>Recording points-in-time of the evolution of our working-files
       (<a href="#idCommitting">committing</a>) is the first major feature of the git.
       <br/>Its second major feature is its capability to create COPIES
       of our <a href="#idGrFile">working-files</a>, in parallel with
       our main working-files in order to experiment with, without
-      destroying our main working-files.</p>
-    <p>Definition:
+      destroying our main working-files.
+      <a class="hide" href="#idBranchingH1P1" title="idBranchingH1P1">¶</a></p>
+    <p id="idBranchingH1P2">Definition:
       <br/>* "<b>Branch</b>" they call any copy of our working-files,
       stored in our repository, PLUS its history.
       <br/>* "<b>Master-branch</b>" or "master" they call the main working-files.
-      <br/>Git records stages not only of the master-branch but of any branch.</p>
-    <p>Merging:
+      <br/>Git records stages not only of the master-branch but of any branch.
+      <a class="hide" href="#idBranchingH1P2" title="idBranchingH1P2">¶</a></p>
+    <p id="idBranchingH1P3">Merging:
       <br/>Git does not stop on branching. Then it can merge the branches
-      with the master-branch, showing if there are conflicts.</p>
-    <p><a href="#idGitComBranch">Commands</a>:</p>
+      with the master-branch, showing if there are conflicts.
+      <a class="hide" href="#idBranchingH1P3" title="idBranchingH1P3">¶</a></p>
+    <p id="idBranchingH1P4"><a href="#idGitComBranch">Commands</a>:
+      <a class="hide" href="#idBranchingH1P4" title="idBranchingH1P4">¶</a></p>
   </section>
 
-  <section id="idInforming">
-    <h1>Git-Informing</h1>
-    <p>Description:
+  <section id="idInformingH1">
+    <h1 id="idInformingH1">Git-Informing
+      <a class="hide" href="#idInformingH1" title="idInformingH1">¶</a></h1>
+    <p id="idInformingH1P1">Description:
       <br/>As our work is developing and growing we must know our branches,
       our <a href="idCommitting">commits</a>, changes after last commit, etc.
-      Git has commands and tools to inform us about all these.</p>
-    <p><a href="#idGitComInfo">Commands</a>:</p>
+      Git has commands and tools to inform us about all these.
+      <a class="hide" href="#idInformingH1P1" title="idInformingH1P1">¶</a></p>
+    <p id="idInformingH1P2"><a href="#idGitComInfo">Commands</a>:
+      <a class="hide" href="#idInformingH1P2" title="idInformingH1P2">¶</a></p>
   </section>
 
-  <section id="idNavigating">
-    <h1>Git-Navigating</h1>
-    <p>Description:
-      <br/></p>
-    <p><a href="#idGitComNav">Commands</a>:</p>
+  <section id="idNavigatingH1">
+    <h1 id="idNavigatingH1">Git-Navigating
+      <a class="hide" href="#idNavigatingH1" title="idNavigatingH1">¶</a></h1>
+    <p id="idNavigatingH1P1">Description:
+      <br/>
+      <a class="hide" href="#idNavigatingH1P1" title="idNavigatingH1P1">¶</a></p>
+    <p id="idNavigatingH1P2"><a href="#idGitComNav">Commands</a>:
+      <a class="hide" href="#idNavigatingH1P2" title="idNavigatingH1P2">¶</a></p>
   </section>
 
-  <section id="idCollaborating">
-    <h1>Git-Collaborating</h1>
-    <p>Description:
-      <br/></p>
-    <p>General-Senario:
+  <section id="idCollaboratingH1">
+    <h1 id="idCollaboratingH1">Git-Collaborating
+      <a class="hide" href="#idCollaboratingH1" title="idCollaboratingH1">¶</a></h1>
+    <p id="idCollaboratingH1P1">Description:
+      <br/>
+      <a class="hide" href="#idCollaboratingH1P1" title="idCollaboratingH1P1">¶</a></p>
+    <p id="idCollaboratingH1P2">General-Senario:
       <br/>- you will do a number of commits locally,
       <br/>- then fetch data from the online shared repository you cloned the project from to get up to date,
       <br/>- merge any new work into the stuff you did,
-      <br/>- then push your changes back up.</p>
-    <p><a href="#idGitComColl">Commands</a>:</p>
+      <br/>- then push your changes back up.
+      <a class="hide" href="#idCollaboratingH1P2" title="idCollaboratingH1P2">¶</a></p>
+    <p id="idCollaboratingH1P3"><a href="#idGitComColl">Commands</a>:
+      <a class="hide" href="#idCollaboratingH1P3" title="idCollaboratingH1P3">¶</a></p>
   </section>
 
-  <section id="idNext">
-    <h1>What-Next</h1>
-    <p>I have tried to give you the big-picture of the Git.
+  <section id="idNextH1">
+    <h1 id="idNextH1">What-Next
+      <a class="hide" href="#idNextH1" title="idNextH1">¶</a></h1>
+    <p id="idNextH1P1">I have tried to give you the big-picture of the Git.
       <br/>Now you have to learn the SPECIFICS of the commands and
-      of the tools git uses to do what you want to do.</p>
+      of the tools git uses to do what you want to do.
+      <a class="hide" href="#idNextH1P1" title="idNextH1P1">¶</a></p>
   </section>
 
-  <footer>
-    <p>VERSIONS:
-      <br/>* Current: 2010.11.03 (draft)
-      <br/>* Creation: 2010.10.31</p>
-    <address>email: my google user-name is "kaseluris.nikos"</address>
-    <p>TableOfContents-Git-Repository at GitHub:
-      <br/>* <a href="http://nikkas.github.com/TableOfContents/">http://nikkas.github.com/TableOfContents/</a>.</p>
-    <p>Author-Page:
-      <br/>* <a href="http://users.otenet.gr/~nikkas">http://users.otenet.gr/~nikkas</a>/</p>
+  <footer id="idFooter">
+    <p id="idFooterP1">VERSIONS:
+      <br/>* Current: 2010.11.14 (draft)
+      <br/>* Creation: 2010.10.31
+      <a class="hide" href="#idFooterP1" title="idFooterP1">¶</a></p>
+    <address id="idFooterAddress">email: my google user-name is "kaseluris.nikos"
+      <a class="hide" href="#idFooterAddress" title="idFooterAddress">¶</a></p>
+    <p id="idFooterP2">TableOfContents-Git-Repository at GitHub:
+      <br/>* <a href="http://nikkas.github.com/TableOfContents/">http://nikkas.github.com/TableOfContents/</a>.
+      <a class="hide" href="#idFooterP2" title="idFooterP2">¶</a></p>
+    <p id="idFooterP3">Author-Page:
+      <br/>* <a href="http://users.otenet.gr/~nikkas">http://users.otenet.gr/~nikkas</a>/
+      <a class="hide" href="#idFooterP3" title="idFooterP3">¶</a></p>
   </footer>
 </body>
 </html>

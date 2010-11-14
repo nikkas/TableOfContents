@@ -1,5 +1,5 @@
 /*
- * version: 2010.11.13
+ * version: 2010.11.14
  * HoKoNoUmo's style for HTML5
 */
 
@@ -11,7 +11,7 @@ body {
 
 /*********** HEADING-ELEMENTS ***********************/
 header {
-	background-color: #FAFFFF;
+	background-color: #F6FFFF;
 }
 
 header > h1 {
