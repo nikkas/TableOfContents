@@ -30,7 +30,8 @@
   <section id="idDefinitionH1">
     <h1 id="idDefinitionH1">Definition
       <a class="hide" href="#idDefinitionH1" title="idDefinitionH1">¶</a></h1>
-    <p id="idDefinitionH1P1"><b>Git-repository</b> is A directory in a computer WITH some files
+    <p id="idDefinitionH1P1"><b>Git-repository</b>
+      <br/>is A directory in a computer WITH some files
       on a subject we are working on AND their history(evolution) MANAGED with the <a href="#idGit">git-program</a>.
       <a class="hide" href="#idDefinitionH1P1" title="idDefinitionH1P1">¶</a></p>
     <p id="idDefinitionH1P2">Synonyms:
@@ -68,21 +69,23 @@
   <section id="idGitH1">
     <h1 id="idGitH1">Git-Program
       <a class="hide" href="#idGitH1" title="idGitH1">¶</a></h1>
-    <p id="idGitH1P1">The Git-program is a distributed version-control-system developed by Junio Hamano and Linus Torvalds mainly used for source-code-managment.
+    <p id="idGitH1P1">Definition:
+      <br/>The Git-program is a distributed version-control-system developed
+      by Linus Torvalds and Junio Hamano mainly used for source-code-managment.
       <a class="hide" href="#idGitH1P1" title="idGitH1P1">¶</a></p>
     <p id="idGitH1P2">Synonyms:
       <br/>* git,
       <a class="hide" href="#idGitH1P2" title="idGitH1P2">¶</a></p>
     <p id="idGitH1P3">WebSite:
-      <a href="http://git-scm.com">http://git-scm.com</a>/
+      <br/>* <a href="http://git-scm.com">http://git-scm.com</a>/
       <a class="hide" href="#idGitH1P3" title="idGitH1P3">¶</a></p>
   <section id="idGitInstallationH2">
     <h2 id="idGitInstallationH2">Git-Instalation
       <a class="hide" href="#idGitInstallationH2" title="idGitInstallationH2">¶</a></h2>
     <p id="idGitInstallationH2P1">Unix:
-      <br/>* On Ubuntu distribution, you may install git using the following command
+      <br/>* On Ubuntu distribution, you may install Git using the following command
       <br/><code>$ sudo apt-get install git-core</code>
-      <br/>* on Fedora distribution, you may install git using the following command
+      <br/>* on Fedora distribution, you may install Git using the following command
       <br/><code>$ sudo yum install git</code>.
       <a class="hide" href="#idGitInstallationH2P1" title="idGitInstallationH2P1">¶</a></p>
     <p id="idGitInstallationH2P2">Windows:
@@ -110,10 +113,10 @@
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html">git-commit</a> = Record changes to the repository.
       <a class="hide" href="#idGitComRepoH3P1" title="idGitComRepoH3P1">¶</a></p>
   </section>
-  <section id="idGitComCommitH3">
-    <h3 id="idGitComCommitH3">Git-Committing-Commands
-      <a class="hide" href="#idGitComCommitH3" title="idGitComCommitH3">¶</a></h3>
-    <p id="idGitComCommitH3P1">List:
+  <section id="idGitComVersionH3">
+    <h3 id="idGitComVersionH3">Git-Versioning-Commands
+      <a class="hide" href="#idGitComVersionH3" title="idGitComVersionH3">¶</a></h3>
+    <p id="idGitComVersionH3P1">List:
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-add.html">git-add</a> = Add files to be included in next commit
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html">git-commit</a> = Record changes to the repository
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-status.html">git-status</a> = List files changed since last commit
@@ -121,7 +124,7 @@
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-reset.html">git-reset</a> = Go to previous states
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-rm.html">git-rm</a> = Remove files from the working tree and from the index
       <br/>* <a href="http://www.kernel.org/pub/software/scm/git/docs/git-mv.html">git-mv</a> = Move or rename a file, a directory, or a symlink
-      <a class="hide" href="#idGitComCommitH3P1" title="idGitComCommitH3P1">¶</a></p>
+      <a class="hide" href="#idGitComVersionH3P1" title="idGitComVersionH3P1">¶</a></p>
   </section>
   <section id="idGitComBranchH3">
     <h3 id="idGitComBranchH3">Git-Branching-Merging-Commands
@@ -176,35 +179,59 @@
       <br/>* create a repository from an existing directory of <a href="#idGrFile">working-files</a> with <a href="http://www.kernel.org/pub/software/scm/git/docs/git-init.html">git-init</a> command or
       <br/>* copy a remote repository with <a href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a> command.
       <a class="hide" href="#idCreatingH1P1" title="idCreatingH1P1">¶</a></p>
-    <p id="idCreatingH1P2"><a href="#idGitComRepo">Commands</a>:
+    <p id="idCreatingH1P2"><a href="#idGitComRepoH3">Commands</a>:
       <a class="hide" href="#idCreatingH1P2" title="idCreatingH1P2">¶</a></p>
   </section>
 
-  <section id="idCommittingH1">
-    <h1 id="idCommittingH1">Git-Versioning (Committing)
-      <a class="hide" href="#idCommittingH1" title="idCommittingH1">¶</a></h1>
-    <p id="idCommittingH1P1">Description:
-      <br/>History|time is a continuous entity. Of course git cannot record
+  <section id="idVersioningH1">
+    <h1 id="idVersioningH1">Git-Versioning
+      <a class="hide" href="#idVersioningH1" title="idVersioningH1">¶</a></h1>
+    <p id="idVersioningH1P1">Description:
+      <br/>History|time is a continuous entity. Of course Git cannot record
       the history of our <a href="#idGrFile">working-files</a> continuously.
-      The USER desides on which discrete point in time the program will store
-      the state|stage of our working-files.
+      The USER desides on which <b>discrete point in time</b> the program
+      will store the state|stage of our working-files.
       The set of all recorded points-in-time is the "history of the repository".
-      <a class="hide" href="#idCommittingH1P1" title="idCommittingH1P1">¶</a></p>
-    <p id="idCommittingH1P2">Definition:
+      <a class="hide" href="#idVersioningH1P1" title="idVersioningH1P1">¶</a></p>
+    <p id="idVersioningH1P2">Definition:
       <br/>* "<b>Commit</b>" they call any recorded stage of our working-files.
       <br/>Synonyms: "version", "stage", "snapshot".
       <br/>They call it "commit" from the name of the command they use
       to do this process.
-      <br/>* "<b>Committing</b>" or "staging" or "snapshotting" they call the process
+      <br/>* "<b>Committing</b>" they call the process
       of storing a stage in the evolution of working-files.
-      <a class="hide" href="#idCommittingH1P2" title="idCommittingH1P2">¶</a></p>
-    <p id="idCommittingH1P3">Warning:
-      <br/>Committing is NOT an automatic process. The user subjectively
-      decides when to do it. Also the user must tell to git which
-      of the changed working-files wants to record.
-      <a class="hide" href="#idCommittingH1P3" title="idCommittingH1P3">¶</a></p>
-    <p id="idCommittingH1P4"><a href="#idGitComCommit">Commands</a>:
-      <a class="hide" href="#idCommittingH1P4" title="idCommittingH1P4">¶</a></p>
+      <a class="hide" href="#idVersioningH1P2" title="idVersioningH1P2">¶</a></p>
+    <p id="idVersioningH1P3">Warning:
+      <br/>Versioning is NOT an automatic process. The user <b>subjectively</b>
+      decides when to do it, in 3 steps:
+      <br/>1. make changes.
+      <br/>2. record what he|she wants to version. This is called "staging".
+      Repeat [1] and [2] as many times he wants.
+      <br/>3. make changes permanent. This is called "committing".
+      <a class="hide" href="#idVersioningH1P3" title="idVersioningH1P3">¶</a></p>
+    <p id="idVersioningH1P4"><a href="#idGitComVersionH3">Commands</a>:
+      <a class="hide" href="#idVersioningH1P4" title="idVersioningH1P4">¶</a></p>
+  <section id="idChangingH2">
+    <h2 id="idChangingH2">Git-Changing
+      <a class="hide" href="#idChangingH2" title="idChangingH2">¶</a></h2>
+    <p id="idChangingH2P1">Description:
+      <br/>
+      <a class="hide" href="#idChangingH2P1" title="idChangingH2P1">¶</a></p>
+  </section>
+  <section id="idStagingH2">
+    <h2 id="idStagingH2">Git-Staging
+      <a class="hide" href="#idStagingH2" title="idStagingH2">¶</a></h2>
+    <p id="idStagingH2P1">Description:
+      <br/>
+      <a class="hide" href="#idStagingH2P1" title="idStagingH2P1">¶</a></p>
+  </section>
+  <section id="idCommittingH2">
+    <h2 id="idCommittingH2">Git-Committing
+      <a class="hide" href="#idCommittingH2" title="idCommittingH2">¶</a></h2>
+    <p id="idCommittingH2P1">Description:
+      <br/>
+      <a class="hide" href="#idCommittingH2P1" title="idCommittingH2P1">¶</a></p>
+  </section>
   </section>
 
   <section id="idBranchingH1">
@@ -212,7 +239,7 @@
       <a class="hide" href="#idBranchingH1" title="idBranchingH1">¶</a></h1>
     <p id="idBranchingH1P1">Description:
       <br/>Recording points-in-time of the evolution of our working-files
-      (<a href="#idCommitting">committing</a>) is the first major feature of the git.
+      (<a href="#idVersioning">committing</a>) is the first major feature of the git.
       <br/>Its second major feature is its capability to create COPIES
       of our <a href="#idGrFile">working-files</a>, in parallel with
       our main working-files in order to experiment with, without
@@ -228,7 +255,7 @@
       <br/>Git does not stop on branching. Then it can merge the branches
       with the master-branch, showing if there are conflicts.
       <a class="hide" href="#idBranchingH1P3" title="idBranchingH1P3">¶</a></p>
-    <p id="idBranchingH1P4"><a href="#idGitComBranch">Commands</a>:
+    <p id="idBranchingH1P4"><a href="#idGitComBranchH3">Commands</a>:
       <a class="hide" href="#idBranchingH1P4" title="idBranchingH1P4">¶</a></p>
   </section>
 
@@ -237,10 +264,10 @@
       <a class="hide" href="#idInformingH1" title="idInformingH1">¶</a></h1>
     <p id="idInformingH1P1">Description:
       <br/>As our work is developing and growing we must know our branches,
-      our <a href="idCommitting">commits</a>, changes after last commit, etc.
+      our <a href="idVersioning">commits</a>, changes after last commit, etc.
       Git has commands and tools to inform us about all these.
       <a class="hide" href="#idInformingH1P1" title="idInformingH1P1">¶</a></p>
-    <p id="idInformingH1P2"><a href="#idGitComInfo">Commands</a>:
+    <p id="idInformingH1P2"><a href="#idGitComInfoH3">Commands</a>:
       <a class="hide" href="#idInformingH1P2" title="idInformingH1P2">¶</a></p>
   </section>
 
@@ -250,7 +277,7 @@
     <p id="idNavigatingH1P1">Description:
       <br/>
       <a class="hide" href="#idNavigatingH1P1" title="idNavigatingH1P1">¶</a></p>
-    <p id="idNavigatingH1P2"><a href="#idGitComNav">Commands</a>:
+    <p id="idNavigatingH1P2"><a href="#idGitComNavH3">Commands</a>:
       <a class="hide" href="#idNavigatingH1P2" title="idNavigatingH1P2">¶</a></p>
   </section>
 
@@ -266,7 +293,7 @@
       <br/>- merge any new work into the stuff you did,
       <br/>- then push your changes back up.
       <a class="hide" href="#idCollaboratingH1P2" title="idCollaboratingH1P2">¶</a></p>
-    <p id="idCollaboratingH1P3"><a href="#idGitComColl">Commands</a>:
+    <p id="idCollaboratingH1P3"><a href="#idGitComCollH3">Commands</a>:
       <a class="hide" href="#idCollaboratingH1P3" title="idCollaboratingH1P3">¶</a></p>
   </section>
 
@@ -275,13 +302,13 @@
       <a class="hide" href="#idNextH1" title="idNextH1">¶</a></h1>
     <p id="idNextH1P1">I have tried to give you the big-picture of the Git.
       <br/>Now you have to learn the SPECIFICS of the commands and
-      of the tools git uses to do what you want to do.
+      of the tools Git uses to do what you want to do.
       <a class="hide" href="#idNextH1P1" title="idNextH1P1">¶</a></p>
   </section>
 
   <footer id="idFooter">
     <p id="idFooterP1">VERSIONS:
-      <br/>* Current: 2010.11.14 (draft)
+      <br/>* Current: 2010.11.16 (draft)
       <br/>* Creation: 2010.10.31
       <a class="hide" href="#idFooterP1" title="idFooterP1">¶</a></p>
     <address id="idFooterAddress">email: my google user-name is "kaseluris.nikos"
