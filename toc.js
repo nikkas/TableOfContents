@@ -1,5 +1,5 @@
 /*
- * version: 2010.11.14
+ * version: 2010.12.06
  * toc.js - the content-scripts of TableOfContents-extension.
  *
  * Copyright (C) 2010 Kaseluris-Nikos-1959,
@@ -71,13 +71,19 @@ chrome.extension.onRequest.addListener(
       if(tocNoPowerstate===1){
         tocNoIdTreeLi=0;
         var elBody=document.body;
+
+        /* create divSplitter */
+        var tocElDivSplitter=document.createElement("div");
+        tocElDivSplitter.id="idSplitterContainer";
+        /* remove from old-body its elements */
+        elBody.innerHTML="";
+        elBody.appendChild(tocElDivSplitter);
+
         /* set on DivCntnt the old-body */
         var tocElDivCntnt=document.createElement("div");
         tocElDivCntnt.id="idTocDivCntnt";
         tocElDivCntnt.innerHTML=tocElBodyInner;
-        /* remove from old-body its elements */
-        elBody.innerHTML="";
-        elBody.appendChild(tocElDivCntnt);
+        tocElDivSplitter.appendChild(tocElDivCntnt);
 
         /* insert toc */
         var tocElDivToc=document.createElement("div");
@@ -159,7 +165,12 @@ chrome.extension.onRequest.addListener(
             )
           }
         );
-        elBody.insertBefore(tocElDivToc,elBody.firstChild);
+        tocElDivSplitter.insertBefore(tocElDivToc,tocElDivSplitter.firstChild);
+
+        $("#idSplitterContainer").splitter({
+          anchorToWindow: true
+         });
+
         fInitTree();
         fExpandFirst('idTocTree');
         /* go to existing-address */
@@ -170,6 +181,8 @@ chrome.extension.onRequest.addListener(
       }
       else if(tocNoPowerstate===0){
         document.body.innerHTML=tocElBodyInner;
+        /** splitter makes margin 0, default 8. */
+        $("body").css("margin", 8);
       }
     } else if (request.type==="requestState"){
       chrome.extension.sendRequest({type:"setStateText",value:tocNoPowerstate});
@@ -456,7 +469,7 @@ function fH5oGetOutlineHtml(){
      * this means, h5oSemSectionCurrent will change
      * (and we won't get back to it) */
     if ((fH5oIsElmSectioningContent(elm)|| fH5oIsElmSectioningRoot(elm))
-    	     && !h5oSemSectionCurrent.ssElmHeading) {
+           && !h5oSemSectionCurrent.ssElmHeading) {
       h5oSemSectionCurrent.ssElmHeading=
         '<i>Untitled ' + fH5oGetTagName(elm) + '</i>';
     }

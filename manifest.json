@@ -1,12 +1,12 @@
 {
-  "version": "2010.11.14.2",
+  "version": "2010.12.6.3",
   "name": "TableOfContents",
-  "description": "Creates an expandable Table-of-Contents of a selected tab.",
+  "description": "Creates an expandable Table-of-Contents of a web-page with headings.",
   "background_page": "toc-background.html",
 
   "content_scripts": [{
     "css": [ "toc.css" ],
-    "js": ["toc-jquery-1.4.3.min.js", "toc.js"],
+    "js": ["toc-jquery-1.4.3.min.js", "toc-splitter.js", "toc.js"],
     "matches": [ "<all_urls>"],
     "run_at": "document_end"
   }],
