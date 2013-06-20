@@ -1,10 +1,10 @@
 /*
- * version: 2010.12.06
- * toc.js - the content-scripts of TableOfContents-extension.
+ * version: 2013.06.20
+ * toc.js - the content-scripts of Table-of-contents-chrome-extension.
  *
- * Copyright (C) 2010 Kaseluris-Nikos-1959,
- * nikkas@otenet.gr
- * users.otenet.gr/~nikkas/
+ * Copyright (C) 2010-2013 Kaseluris.Nikos.1959,
+ * kaseluris.nikos@gmail.com
+ * synagonism.net
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -49,398 +49,278 @@
  * To create the expandable-tree I modified code from
  * http://www.dhtmlgoodies.com/
  */
-var tocNoPowerstate=0;
-var tocElBodyInner=document.body.innerHTML;
 
-/* toc-tree variables */
-var tocImgFolder='http://htmlmgr.sourceforge.net/law/';
-var tocImgItem='toc-img-item.png';
-var tocImgPlus='toc-img-plus.png';
-var tocImgMinus='toc-img-minus.png';
-var tocNoIdTreeLi;
-
-/* this is the page-listener */
-chrome.extension.onRequest.addListener(
-  function (request,sender,p){
-    if (request.type==="toggleState"){
-      if (tocNoPowerstate===0){tocNoPowerstate=1}
-      else if (tocNoPowerstate==1){tocNoPowerstate=0}
-      chrome.extension.sendRequest({type:"setStateText",value:tocNoPowerstate});
-
-      /* create toc */
-      if(tocNoPowerstate===1){
-        tocNoIdTreeLi=0;
-        var elBody=document.body;
-
-        /* create divSplitter */
-        var tocElDivSplitter=document.createElement("div");
-        tocElDivSplitter.id="idSplitterContainer";
-        /* remove from old-body its elements */
-        elBody.innerHTML="";
-        elBody.appendChild(tocElDivSplitter);
-
-        /* set on DivCntnt the old-body */
-        var tocElDivCntnt=document.createElement("div");
-        tocElDivCntnt.id="idTocDivCntnt";
-        tocElDivCntnt.innerHTML=tocElBodyInner;
-        tocElDivSplitter.appendChild(tocElDivCntnt);
-
-        /* insert toc */
-        var tocElDivToc=document.createElement("div");
-        tocElDivToc.id="idTocDivToc";
-        var elOutline=fH5oGetOutlineHtml();
-        tocElDivToc.innerHTML=elOutline;
-        tocElDivToc.getElementsByTagName("ul")[0].setAttribute('id','idTocTree');
-        /* insert collaplse-button */
-        var elClpsAll=document.createElement("input");
-        elClpsAll.setAttribute("type","button");
-        elClpsAll.setAttribute("value","Collapse-All");
-        $(elClpsAll).click(
-          function(event){
-            fCollapseAll('idTocTree');
-          });
-        tocElDivToc.insertBefore(elClpsAll,tocElDivToc.firstChild);
-        /* insert expand-button */
-        var elExpAll=document.createElement("input");
-        elExpAll.setAttribute("type","button");
-        elExpAll.setAttribute("value","Expand-All");
-        $(elExpAll).click(
-          function(event){
-            fExpandAll('idTocTree');
-          });
-        tocElDivToc.insertBefore(elExpAll,tocElDivToc.firstChild);
-        /* insert title-element */
-        var elP=document.createElement("p");
-        elP.innerHTML="ToC: "+document.title;
-        elP.title="© 2010 Kaseluris-Nikos-1959";
-        tocElDivToc.insertBefore(elP,tocElDivToc.firstChild);
-        $(tocElDivToc).find("p").css('font-size','16px');
-
-        /* toc: add note at the end */
-        var elPNote=document.createElement("p");
-        elPNote.innerHTML="Note: By clicking on a HEADING, you see on the expandable-toc-tree its position.";
-        tocElDivToc.appendChild(elPNote);
-
-        $(tocElDivToc).find("a").each(
-          /* what to do on clicking a link in toc */
-          function(){
-            $(this).click(
-              function(event){
-                event.preventDefault();
-                var id=$(event.target).attr("href").split('#')[1];
-                fH5oGotoId(id);
-                fHighlightItem(tocElDivToc,this);
-                return false
-              }
-            )
-            /* sets as title-attribute the text of a-element */
-            var txt=$(this).text();
-            $(this).attr('title',txt);
-          }
-        );
-        /* on content get-id */
-        $(tocElDivCntnt).find("*[id]").each(
-//        $(tocElDivCntnt).find("*[id^='h5o-']").each(
-          function(){
-            $(this).click(
-              function(event){
-                if (event.stopPropagation){
-                  event.stopPropagation();
-                }else{
-                  event.cancelBubble=true;
-                }
-                var sID="#"+$(this).attr('id');
-                $(tocElDivToc).find("a").each(
-                  function(){
-                    if($(this).attr('href')===sID){
-//                      fExpandAll('idTocTree');
-                      fCollapseAll('idTocTree');
-                      fHighlightItem(tocElDivToc,this);
-                      fExpandParent(this);
-                      /* scroll to this element */
-//                      this.scrollIntoView(true);
-                    }
-                  });
-              }
-            )
-          }
-        );
-        tocElDivSplitter.insertBefore(tocElDivToc,tocElDivSplitter.firstChild);
-
-        $("#idSplitterContainer").splitter({
-          anchorToWindow: true
-         });
-
-        fInitTree();
-        fExpandFirst('idTocTree');
-        /* go to existing-address */
-        var sUrl=document.URL;
-        if(sUrl.indexOf("#")>=0){
-          location.href="#"+sUrl.split('#')[1];
-        }
-      }
-      else if(tocNoPowerstate===0){
-        document.body.innerHTML=tocElBodyInner;
-        /** splitter makes margin 0, default 8. */
-        $("body").css("margin", 8);
-      }
-    } else if (request.type==="requestState"){
-      chrome.extension.sendRequest({type:"setStateText",value:tocNoPowerstate});
-    }
-  }
-);
-
-/* Goes to Id, and blinks it. From HTML5-Outliner */
-function fH5oGotoId(id){
-  location.href='#'+id;
-  var el=document.getElementById(id);
-  var currentOpacity=window.getComputedStyle(el).opacity,
-    currentTransition=window.getComputedStyle(el).webkitTransition;
-  var duration=200,
-    itr=0;
-  el.style.webkitTransitionProperty="opacity";
-  el.style.webkitTransitionDuration=duration+"ms"
-  el.style.webkitTransitionTimingFunction="ease";
-  var blink=function()
-  {
-    el.style.opacity=(itr % 2 == 0 ? 0 : currentOpacity);
-    if (itr < 3) {
-      itr++;
-      setTimeout(blink, duration);
-    } else {
-      el.style.webkitTransition=currentTransition;
-    }
-  }
-  blink();
-}
-
+var tocNoPowerstate = 0,
+  contentOriginal = document.body.innerHTML,
+  tocNoIdTreeLi;
 
 /* Returns an html-ul-element that holds the outline.
- * <ul id="idTocTree">
- *   <li id="idTocTreeLI1"><img src="...png"><a href="#h5o-1" title="...">...</a>
+ * <ul id = "idTocTree">
+ *   <li id = "idTocTreeLI1"><img src = "...png"><a href = "#h5o-1" title = "...">...</a>
  *   ...
  *   </li>
  * </ul>
  * From HTML5-Outliner: https://chrome.google.com/extensions/detail/afoibpobokebhgfnknfndkgemglggomo */
-function fH5oGetOutlineHtml(){
+function fnH5oGet_outlineHtml() {
   var h5oElmCurrentOutlinee, h5oElmDocumentRoot, h5oSemSectionCurrent,
-      h5oArStack, h5oNoCounterLink;
+    h5oArStack, h5oNoCounterLink, objOutline;
 
-  /* http://dev.w3.org/html5/spec/Overview.html#sectioning-root */
-  function fH5oIsElmSectioningRoot(elm){
-    return fH5oIsElement(elm) &&
-           (new RegExp('^BLOCKQUOTE|BODY|DETAILS|FIELDSET|FIGURE|TD$', "i")).test(fH5oGetTagName(elm));
-  }
-
-  /* http://dev.w3.org/html5/spec/Overview.html#sectioning-content */
-  function fH5oIsElmSectioningContent(elm){
-    return fH5oIsElement(elm) &&
-            (new RegExp('^ARTICLE|ASIDE|NAV|SECTION$', "i")).test(fH5oGetTagName(elm));
-  }
-
-  /* http://dev.w3.org/html5/spec/Overview.html#heading-content */
-  function fH5oIsElmHeading(elm){
-    return fH5oIsElement(elm) &&
-            (new RegExp('^H[1-6]|HGROUP$', "i")).test(fH5oGetTagName(elm));
-  }
-
-  function fH5oIsElement(obj){
+  function funH5oIsElement(obj) {
     return obj && obj.tagName;
   }
 
-  /* A semantic-section (ss) class */
-  function fH5oSemSection(elmStart){
-    this.ssArSections=[];
-    this.ssElmStart=elmStart;
-    /* the heading-element of this semantic-section */
-    this.ssElmHeading=false;
-
-    this.ssFAppend=function(what){
-      what.container=this;
-      this.ssArSections.push(what);
-    };
-    this.ssFAsHTML= function(){
-      var headingText=fH5oGetSectionHeadingText(this.ssElmHeading);
-      headingText='<a href="#'+fH5oGenerateId(this.ssElmStart)+'">'
-                    + headingText
-                    + '</a>';
-      return headingText + fH5oGetSectionListAsHtml(this.ssArSections);
-    };
+  /* minifiers will love this more than using el.tagName.toUpperCase() directly */
+  function funH5oGetTagName(elm) {
+    return elm.tagName.toUpperCase();
+    /* upper casing due to http://ejohn.org/blog/nodename-case-sensitivity/ */
   }
 
-  function fH5oGetSectionListAsHtml(sections){
-    var retval='';
-    for (var i=0; i < sections.length; i++) {
-      retval+='<li>'+sections[i].ssFAsHTML()+'</li>';
+  /* http://dev.w3.org/html5/spec/Overview.html#sectioning-root */
+  function funH5oIsElmSectioningRoot(elm) {
+    return funH5oIsElement(elm) &&
+           (new RegExp('^BLOCKQUOTE|BODY|DETAILS|FIELDSET|FIGURE|TD$', "i")).test(funH5oGetTagName(elm));
+  }
+
+  /* http://dev.w3.org/html5/spec/Overview.html#sectioning-content */
+  function funH5oIsElmSectioningContent(elm) {
+    return funH5oIsElement(elm) &&
+            (new RegExp('^ARTICLE|ASIDE|NAV|SECTION$', "i")).test(funH5oGetTagName(elm));
+  }
+
+  /* http://dev.w3.org/html5/spec/Overview.html#heading-content */
+  function funH5oIsElmHeading(elm) {
+    return funH5oIsElement(elm) &&
+            (new RegExp('^H[1-6]|HGROUP$', "i")).test(funH5oGetTagName(elm));
+  }
+
+  function funH5oGetHeadingElmRank(el) {
+    var elTagName = funH5oGetTagName(el), i;
+    if (elTagName === 'HGROUP') {
+      /* The rank of an hgroup element is the rank of the highest-ranked
+       * h1-h6 element descendant of the hgroup element,
+       * if there are any such elements, or otherwise the same as for
+       * an h1 element (the highest rank). */
+      for (i = 1; i <= 6; i += 1) {
+        if (el.getElementsByTagName('H' + i).length > 0) {
+          return -i;
+        }
+      }
+    } else {
+      return -parseInt(elTagName.substr(1), null);
     }
-    return (retval=='' ? retval : '<ul>'+retval+'</ul>');
-  }
-
-  function fH5oGetSectionHeadingRank(semSection){
-    var elmHeading=semSection.ssElmHeading;
-    return fH5oIsElmHeading(elmHeading)
-          ? fH5oGetHeadingElmRank(elmHeading)
-          : 1; /* is this true? TODO: find a reference... */
   }
 
   /* returns the text of heading of a sem-section */
-  function fH5oGetSectionHeadingText(elmHeading){
-    if (fH5oIsElmHeading(elmHeading)) {
-      if (fH5oGetTagName(elmHeading)=='HGROUP') {
-        elmHeading=elmHeading.getElementsByTagName('h'+(-fH5oGetHeadingElmRank(elmHeading)))[0];
+  function funH5oGetSectionHeadingText(elmHeading) {
+    var sEmpty = '', sTxt;
+    if (funH5oIsElmHeading(elmHeading)) {
+      if (funH5oGetTagName(elmHeading) === 'HGROUP') {
+        elmHeading = elmHeading.getElementsByTagName('h' + (-funH5oGetHeadingElmRank(elmHeading)))[0];
       }
       /* @todo: try to resolve text content from img[alt] or *[title] */
-      var sTxt=elmHeading.textContent;
-      /* removes from heading the "hide"-class content */
-      sTxt=sTxt.replace(/\n *¶$/, "");
+      sTxt = elmHeading.textContent;
+      /* removes from heading the "classHide" content */
+      sTxt = sTxt.replace(/\n *¶$/, "");
       return sTxt
         || elmHeading.innerText
-        || "<i>No text content inside "+elmHeading.nodeName+"</i>";
+        || "<i>No text content inside " + elmHeading.nodeName + "</i>";
     }
-    return ""+elmHeading;
+    return sEmpty + elmHeading;
   }
 
   /* sets an id in an element, if it does not has one */
-  function fH5oGenerateId(elm){
-    var id=elm.getAttribute('id');
-    if (id) return id;
+  function funH5oGenerateId(elm) {
+    var id = elm.getAttribute('id');
+    if (id) {
+      return id;
+    }
 
     /* toc-extension has 2 div-elm, one for toc and one to content.
      * this way the begining of content is NOT the body-element.
      * Thus I put the first id, in its first heading-element. */
-    if (fH5oGetTagName(elm)=='BODY'){
-      id="h5o-1";
-      if(elm.getElementsByTagName("header").length>0){
-        elm.getElementsByTagName("header")[0].setAttribute('id',id);
-      }else if(elm.getElementsByTagName("h1").length>0){
-        elm.getElementsByTagName("h1")[0].setAttribute('id',id);
-      }else if(elm.getElementsByTagName("h2").length>0){
-        elm.getElementsByTagName("h2")[0].setAttribute('id',id);
+    if (funH5oGetTagName(elm) === 'BODY') {
+      id = 'h5o-1';
+      if (elm.getElementsByTagName("header").length > 0) {
+        elm.getElementsByTagName("header")[0].setAttribute('id', id);
+      } else if (elm.getElementsByTagName('h1').length > 0) {
+        elm.getElementsByTagName('h1')[0].setAttribute('id', id);
+      } else if (elm.getElementsByTagName('h2').length > 0) {
+        elm.getElementsByTagName('h2')[0].setAttribute('id', id);
       }
       return id;
     }
 
     do {
-      id='h5o-'+(++h5oNoCounterLink);
+      id = 'h5o-' + (h5oNoCounterLink += 1);
     } while (h5oElmDocumentRoot.getElementById(id));
     elm.setAttribute('id', id);
     return id;
   }
 
+  function funH5oGetSectionListAsHtml(sections) {
+    var retval = '', i;
+    for (i = 0; i < sections.length; i += 1) {
+      retval += '<li>' + sections[i].ssFAsHTML() + '</li>';
+    }
+    return (retval === '' ? retval : '<ul>' + retval + '</ul>');
+  }
+
+  /* A semantic-section (ss) class */
+  function FunH5oSemSection(elmStart) {
+    this.ssArSections = [];
+    this.ssElmStart = elmStart;
+    /* the heading-element of this semantic-section */
+    this.ssElmHeading = false;
+
+    this.ssFAppend = function (what) {
+      what.container = this;
+      this.ssArSections.push(what);
+    };
+    this.ssFAsHTML = function () {
+      var headingText = funH5oGetSectionHeadingText(this.ssElmHeading);
+      headingText = '<a href = "#' + funH5oGenerateId(this.ssElmStart) + '">'
+                    + headingText
+                    + '</a>';
+      return headingText + funH5oGetSectionListAsHtml(this.ssArSections);
+    };
+  }
+
+  function funH5oGetSectionHeadingRank(semSection) {
+    var elmHeading = semSection.ssElmHeading;
+    return funH5oIsElmHeading(elmHeading)
+          ? funH5oGetHeadingElmRank(elmHeading)
+          : 1; /* is this true? TODO: find a reference... */
+  }
+
   /* http://dev.w3.org/html5/spec/Overview.html#outlines */
-  function fH5oWalk(elRoot, fH5oEnterNode, fH5oExitNode) {
-    var elm=elRoot;
-    start: while (elm) {
-      fH5oEnterNode(elm);
+  function funH5oWalk(elRoot, funH5oEnterNode, funH5oExitNode) {
+    var elm = elRoot;
+start:
+    while (elm) {
+      funH5oEnterNode(elm);
       if (elm.firstChild) {
-        elm=elm.firstChild;
+        elm = elm.firstChild;
         continue start;
       }
       while (elm) {
-        fH5oExitNode(elm);
+        funH5oExitNode(elm);
         if (elm.nextSibling) {
-          elm=elm.nextSibling;
+          elm = elm.nextSibling;
           continue start;
         }
-        if (elm == elRoot)
-          elm=null;
-        else
-          elm=elm.parentNode;
+        if (elm === elRoot) {
+          elm = null;
+        } else {
+          elm = elm.parentNode;
+        }
       }
     }
   }
 
-  function fH5oEnterNode(elm){
+  function funH5oGetArrayLastItem(arr) {
+    return arr[arr.length - 1];
+  }
+
+  function funH5oLastSection(outlineOrSSection) {
+    /* from a ssection or elmOutline object */
+    if (outlineOrSSection && outlineOrSSection.elStartingNode) {
+      return funH5oGetArrayLastItem(outlineOrSSection.elArSections);
+    }
+    return funH5oGetArrayLastItem(outlineOrSSection.ssArSections);
+  }
+
+  function funH5oEnterNode(elm) {
     /* If the top of the stack is a heading-content-element - do nothing */
-    if (fH5oIsElmHeading(fH5oGetArrayLastItem(h5oArStack))) {
+    if (funH5oIsElmHeading(funH5oGetArrayLastItem(h5oArStack))) {
       return;
     }
     /* When entering a sectioning-content-element or a sectioning-root-element */
-    if (fH5oIsElmSectioningContent(elm) || fH5oIsElmSectioningRoot(elm)) {
+    if (funH5oIsElmSectioningContent(elm) || funH5oIsElmSectioningRoot(elm)) {
       /* If current-outlinee is not null, and the current-section has no heading,
        * create an implied heading and let that be the heading
        * for the current-section. */
-      // if (h5oElmCurrentOutlinee!=null && !h5oSemSectionCurrent.ssElmHeading) {
+      // if (h5oElmCurrentOutlinee != null && !h5oSemSectionCurrent.ssElmHeading) {
         /*
           TODO: is this really the way it should be done?
-          In my implementation, "implied heading" is always created (section.ssElmHeading=false by default)
+          In my implementation, "implied heading" is always created (section.ssElmHeading = false by default)
           If I DO "create" something else here, the algorithm goes very wrong, as there's a place
           where you have to check whether a "heading exists" - so - does the "implied heading" mean
           there is a heading or not?
         */
       // }
       /* If current-outlinee is not null, push current-outlinee onto the stack. */
-      if (h5oElmCurrentOutlinee!=null) {
+      if (h5oElmCurrentOutlinee !== null) {
         h5oArStack.push(h5oElmCurrentOutlinee);
       }
       /* Let current-outlinee be the element that is being entered. */
-      h5oElmCurrentOutlinee=elm;
+      h5oElmCurrentOutlinee = elm;
       /* Let current-section be a newly created section for
        * the current-outlinee element. */
-      h5oSemSectionCurrent=new fH5oSemSection(elm);
+      h5oSemSectionCurrent = new FunH5oSemSection(elm);
       /* Let there be a new outline for the new current-outlinee,
        * initialized with just the new current-section as the only
        * section in the outline. */
-      h5oElmCurrentOutlinee.elmOutline={
+      h5oElmCurrentOutlinee.elmOutline = {
         elArSections: [h5oSemSectionCurrent],
         elStartingNode: elm,
-        elFAsHtml: function() {
-          return fH5oGetSectionListAsHtml(this.elArSections);
+        elFAsHtml: function () {
+          return funH5oGetSectionListAsHtml(this.elArSections);
         }
-      }
+      };
       return;
     }
     /* If the current-outlinee is null, do nothing */
-    if (h5oElmCurrentOutlinee==null) {
+    if (h5oElmCurrentOutlinee === null) {
       return;
     }
     /* When entering a heading-content-element */
-    if (fH5oIsElmHeading(elm)) {
+    if (funH5oIsElmHeading(elm)) {
+      var h5oSemSectionNew, bAbourtSubsteps, h5oSemSectionCandidate,
+        newCandidateSection;
       /* If the current-section has no heading, let the element being entered
        * be the heading for the current-section. */
       if (!h5oSemSectionCurrent.ssElmHeading) {
-        h5oSemSectionCurrent.ssElmHeading=elm;
+        h5oSemSectionCurrent.ssElmHeading = elm;
         /* Otherwise, if the element being entered has a rank equal to
          * or greater than the heading of the last section of the outline
          * of the current-outlinee, */
-      } else if (fH5oGetHeadingElmRank(elm) >=
-                 fH5oGetSectionHeadingRank(
-                   fH5oLastSection(h5oElmCurrentOutlinee.elmOutline))) {
+      } else if (funH5oGetHeadingElmRank(elm) >=
+          funH5oGetSectionHeadingRank(funH5oLastSection(h5oElmCurrentOutlinee.elmOutline))) {
         /* create a new section and */
-        var h5oSemSectionNew=new fH5oSemSection(elm);
+        h5oSemSectionNew = new FunH5oSemSection(elm);
         /* append it to the outline of the current-outlinee element,
          * so that this new section is the new last section of that outline. */
         h5oElmCurrentOutlinee.elmOutline.elArSections.push(h5oSemSectionNew);
         /* Let current-section be that new section. */
-        h5oSemSectionCurrent=h5oSemSectionNew;
+        h5oSemSectionCurrent = h5oSemSectionNew;
         /* Let the element being entered be the new heading for the current-section. */
-        h5oSemSectionCurrent.ssElmHeading=elm;
+        h5oSemSectionCurrent.ssElmHeading = elm;
       /* Otherwise, run these substeps: */
       } else {
-        var bAbourtSubsteps=false;
+        bAbourtSubsteps = false;
         /* 1. Let candidate-section be current-section. */
-        var h5oSemSectionCandidate=h5oSemSectionCurrent;
+        h5oSemSectionCandidate = h5oSemSectionCurrent;
         do {
           /* 2. If the element being entered has a rank lower than
            * the rank of the heading of the candidate-section, */
-          if (fH5oGetHeadingElmRank(elm) < fH5oGetSectionHeadingRank(h5oSemSectionCandidate)) {
+          if (funH5oGetHeadingElmRank(elm) < funH5oGetSectionHeadingRank(h5oSemSectionCandidate)) {
             /* create a new section, */
-            var h5oSemSectionNew=new fH5oSemSection(elm);
+            h5oSemSectionNew = new FunH5oSemSection(elm);
             /* and append it to candidate-section. (This does not change which section is the last section in the outline.) */
             h5oSemSectionCandidate.ssFAppend(h5oSemSectionNew);
             /* Let current-section be this new section. */
-            h5oSemSectionCurrent=h5oSemSectionNew;
+            h5oSemSectionCurrent = h5oSemSectionNew;
             /* Let the element being entered be the new heading
              * for the current-section. */
-            h5oSemSectionCurrent.ssElmHeading=elm;
+            h5oSemSectionCurrent.ssElmHeading = elm;
             /* Abort these substeps. */
-            bAbourtSubsteps=true;
+            bAbourtSubsteps = true;
           }
           /* 3. Let new candidate-section be the section
            * that contains candidate-section in the outline of current-outlinee. */
-          var newCandidateSection=h5oSemSectionCandidate.container;
+          newCandidateSection = h5oSemSectionCandidate.container;
           /* 4. Let candidate-section be new candidate-section. */
-          h5oSemSectionCandidate=newCandidateSection;
+          h5oSemSectionCandidate = newCandidateSection;
           /* 5. Return to step 2. */
         } while (!bAbourtSubsteps);
       }
@@ -452,14 +332,14 @@ function fH5oGetOutlineHtml(){
     /* Do nothing. */
   }
 
-  function fH5oExitNode(elm){
+  function funH5oExitNode(elm) {
     /* If the top of the stack is an element, and you are exiting that element
      *    Note: The element being exited is a heading-content-element.
      *    Pop that element from the stack.
      * If the top of the stack is a heading-content-element - do nothing */
-    var stackTop=fH5oGetArrayLastItem(h5oArStack);
-    if (fH5oIsElmHeading(stackTop)) {
-      if (stackTop == elm) {
+    var stackTop = funH5oGetArrayLastItem(h5oArStack), i;
+    if (funH5oIsElmHeading(stackTop)) {
+      if (stackTop === elm) {
         h5oArStack.pop();
       }
       return;
@@ -468,50 +348,50 @@ function fH5oGetOutlineHtml(){
     /* existing sectioning content or sectioning root
      * this means, h5oSemSectionCurrent will change
      * (and we won't get back to it) */
-    if ((fH5oIsElmSectioningContent(elm)|| fH5oIsElmSectioningRoot(elm))
+    if ((funH5oIsElmSectioningContent(elm) || funH5oIsElmSectioningRoot(elm))
            && !h5oSemSectionCurrent.ssElmHeading) {
-      h5oSemSectionCurrent.ssElmHeading=
-        '<i>Untitled ' + fH5oGetTagName(elm) + '</i>';
+      h5oSemSectionCurrent.ssElmHeading =
+        '<i>Untitled ' + funH5oGetTagName(elm) + '</i>';
     }
     /************ END MODIFICATION ***********************************/
     /* When exiting a sectioning-content-element, if the stack is not empty */
-    if (fH5oIsElmSectioningContent(elm) && h5oArStack.length > 0) {
+    if (funH5oIsElmSectioningContent(elm) && h5oArStack.length > 0) {
       /* Pop the top element from the stack,
        *and let the current-outlinee be that element. */
-      h5oElmCurrentOutlinee=h5oArStack.pop();
+      h5oElmCurrentOutlinee = h5oArStack.pop();
       /* Let current-section be the last section
        * in the outline of the current-outlinee element. */
-      h5oSemSectionCurrent=fH5oLastSection(h5oElmCurrentOutlinee.elmOutline);
+      h5oSemSectionCurrent = funH5oLastSection(h5oElmCurrentOutlinee.elmOutline);
       /* Append the outline of the sectioning-content-element being exited
        * to the current-section.
        * (This does not change which section is the last section in the outline.) */
-      for (var i=0; i < elm.elmOutline.elArSections.length; i++) {
+      for (i = 0; i < elm.elmOutline.elArSections.length; i += 1) {
         h5oSemSectionCurrent.ssFAppend(elm.elmOutline.elArSections[i]);
       }
       return;
     }
     /* When exiting a sectioning-root-element, if the stack is not empty */
-    if (fH5oIsElmSectioningRoot(elm) && h5oArStack.length > 0) {
+    if (funH5oIsElmSectioningRoot(elm) && h5oArStack.length > 0) {
       /* Pop the top element from the stack,
        * and let the current-outlinee be that element. */
-      h5oElmCurrentOutlinee=h5oArStack.pop();
+      h5oElmCurrentOutlinee = h5oArStack.pop();
       /* Let current-section be the last section
        * in the outline of the current-outlinee element. */
-      h5oSemSectionCurrent=fH5oLastSection(h5oElmCurrentOutlinee.elmOutline);
+      h5oSemSectionCurrent = funH5oLastSection(h5oElmCurrentOutlinee.elmOutline);
       /* Finding the deepest child:
        * If current-section has no child sections, stop these steps. */
       while (h5oSemSectionCurrent.ssArSections.length > 0) {
         /* Let current-section be the last child section
          * of the current current-section. */
-        h5oSemSectionCurrent=fH5oLastSection(h5oSemSectionCurrent);
+        h5oSemSectionCurrent = funH5oLastSection(h5oSemSectionCurrent);
         /* Go back to the substep labeled finding the deepest child. */
       }
       return;
     }
     /* When exiting a sectioning-content-element or a sectioning-root-element */
-    if (fH5oIsElmSectioningContent(elm) || fH5oIsElmSectioningRoot(elm)) {
+    if (funH5oIsElmSectioningContent(elm) || funH5oIsElmSectioningRoot(elm)) {
       /* Let current-section be the first section in the outline of the current-outlinee element. */
-      h5oSemSectionCurrent=h5oElmCurrentOutlinee.elmOutline.elArSections[0];
+      h5oSemSectionCurrent = h5oElmCurrentOutlinee.elmOutline.elArSections[0];
       /* Skip to the next step in the overall set of steps. (The walk is over.) */
       return;
     }
@@ -519,61 +399,26 @@ function fH5oGetOutlineHtml(){
     /* Do nothing */
   }
 
-  /* minifiers will love this more than using el.tagName.toUpperCase() directly */
-  function fH5oGetTagName(elm){
-    return elm.tagName.toUpperCase();
-    /* upper casing due to http://ejohn.org/blog/nodename-case-sensitivity/ */
-  }
-
-  function fH5oGetHeadingElmRank(el){
-    var elTagName=fH5oGetTagName(el);
-    if (elTagName=='HGROUP') {
-      /* The rank of an hgroup element is the rank of the highest-ranked
-       * h1-h6 element descendant of the hgroup element,
-       * if there are any such elements, or otherwise the same as for
-       * an h1 element (the highest rank). */
-      for (var i=1; i <= 6; i++) {
-        if (el.getElementsByTagName('H'+i).length > 0)
-          return -i;
-      }
-    } else {
-      return -parseInt(elTagName.substr(1));
-    }
-  }
-
-  function fH5oLastSection(outlineOrSSection){
-    /* from a ssection or elmOutline object */
-    if (outlineOrSSection && outlineOrSSection.elStartingNode){
-      return fH5oGetArrayLastItem(outlineOrSSection.elArSections);
-    }else{
-      return fH5oGetArrayLastItem(outlineOrSSection.ssArSections);
-    }
-  }
-
-  function fH5oGetArrayLastItem(arr){
-    return arr[arr.length-1];
-  }
-
   /* returns the outline-object of an element */
-  function fH5oGetOutlineObject(elmStart){
-    h5oNoCounterLink=0;
+  function funH5oGetOutlineObject(elmStart) {
+    h5oNoCounterLink = 0;
     /* we need a document, to be able to use getElementById
      * - @todo: figure out a better way, if there is one */
-    h5oElmDocumentRoot=elmStart.ownerDocument || window.document;
+    h5oElmDocumentRoot = elmStart.ownerDocument || window.document;
     /* @todo: how will this work in, say, Rhino, for outlining fragments?
      * Let current-outlinee be null.
      * (It holds the element whose outline is being created.) */
-    h5oElmCurrentOutlinee=null;
+    h5oElmCurrentOutlinee = null;
     /* Let current-section be null.
      * (It holds a pointer to a section,
      * so that elements in the DOM can all be associated with a section.) */
-    h5oSemSectionCurrent=null;
+    h5oSemSectionCurrent = null;
     /* Create a stack to hold elements, which is used to handle nesting.
      * Initialize this stack to empty. */
-    h5oArStack=[];
+    h5oArStack = [];
     /* As you walk over the DOM in tree order, trigger the first relevant step
      * below for each element as you enter and exit it. */
-    fH5oWalk(elmStart, fH5oEnterNode, fH5oExitNode);
+    funH5oWalk(elmStart, funH5oEnterNode, funH5oExitNode);
     /* If the current-outlinee is null,
      * then there was no sectioning-content-element or sectioning-root-element
      * in the DOM. There is no outline. Abort these steps. */
@@ -587,117 +432,496 @@ function fH5oGetOutlineHtml(){
         for that element is the outline of the entire document.
     }
     */
-    return h5oElmCurrentOutlinee != null ? h5oElmCurrentOutlinee.elmOutline : null;
+    return h5oElmCurrentOutlinee !== null ? h5oElmCurrentOutlinee.elmOutline : null;
   }
 
-  var objOutline=fH5oGetOutlineObject(document.body);
+  objOutline = funH5oGetOutlineObject(document.body);
   return objOutline ? objOutline.elFAsHtml(true) : "No outline - is there a FRAMESET?";
 }
 
-/* *********************************************************** */
+/*
+ * Modified from http://www.dhtmlgoodies.com/ */
+function funTocTreeShowHideNode(e, inputId) {
+  var nodeThis, parentNode;
+  if (inputId) {
+    if (!document.getElementById(inputId)) {
+      return;
+    }
+    nodeThis = document.getElementById(inputId).getElementsByTagName('span')[0];
+  } else {
+    nodeThis = this;
+    if (this.tagName === 'a') {
+      nodeThis = this.parentNode.getElementsByTagName('span')[0];
+    }
+  }
+  parentNode = nodeThis.parentNode;/* ▶▷⊳ ▾▼▽∇ ◇◊*/
+  if (nodeThis.innerHTML === '▶') {
+    nodeThis.innerHTML = '∇';
+    parentNode.getElementsByTagName('ul')[0].style.display = 'block';
+  } else if (nodeThis.innerHTML === '∇') {
+    nodeThis.innerHTML = '▶';
+    parentNode.getElementsByTagName('ul')[0].style.display = 'none';
+  }
+  return false;
+}
+
+/* Makes the display-style: none.
+ * Modified from http://www.dhtmlgoodies.com/ */
+function fnTocTreeCollapse_all(idTree) {
+  var tocTreeLIs = document.getElementById(idTree).getElementsByTagName('li'),
+    no,
+    subItems;
+  for (no = 0; no < tocTreeLIs.length; no += 1) {
+    subItems = tocTreeLIs[no].getElementsByTagName('ul');
+    if (subItems.length > 0 && subItems[0].style.display === 'block') {
+      funTocTreeShowHideNode(false, tocTreeLIs[no].id);
+    }
+  }
+}
+
+/* Inserts images with onclick events, before a-elements.
+ * Sets id on li-elements.
+ * Modified from http://www.dhtmlgoodies.com/ */
+function fnTocTreeInit() {
+  var tocTree = document.getElementById('idTocTree'),
+    tocTreeLIs = tocTree.getElementsByTagName('li'), /* Get an array of all menu items */
+    no,
+    subItems,
+    elmSpan,
+    aTag;
+  for (no = 0; no < tocTreeLIs.length; no += 1) {
+    tocNoIdTreeLi += 1;
+    subItems = tocTreeLIs[no].getElementsByTagName('ul');
+    elmSpan = document.createElement('span');
+    elmSpan.innerHTML = '▶';
+    elmSpan.onclick = funTocTreeShowHideNode;
+    elmSpan.setAttribute('class', 'classSpanListIcon');
+    if (subItems.length === 0) {
+      elmSpan.innerHTML = '◇';
+      elmSpan.removeAttribute('class');
+    }
+    aTag = tocTreeLIs[no].getElementsByTagName('a')[0];
+    tocTreeLIs[no].insertBefore(elmSpan, aTag);
+    if (!tocTreeLIs[no].id) {
+      tocTreeLIs[no].id = 'idTocTreeLI' + tocNoIdTreeLi;
+    }
+  }
+}
+
+/* Highlights ONE item in toc-list */
+function funTocTreeHighlightItem(elmSpliterLeftDiv, elm) {
+  /* removes existing highlighting */
+  var tocTreeAs = elmSpliterLeftDiv.getElementsByTagName('a'),
+    no;
+  for (no = 0; no < tocTreeAs.length; no += 1) {
+    tocTreeAs[no].removeAttribute('class');
+  }
+  elm.setAttribute('class', 'classTocTreeHighlight');
+}
+
+/*
+ * version: 2013.06.18
+ *
+ * jQuery.splitter.js
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *   http://www.gnu.org/licenses/gpl.html
+ *
+ * For more details see: http://methvin.com/splitter/
+ *
+ * @author Dave Methvin (dave.methvin@gmail.com)
+ * @author Kaseluris-Nikos-1959
+ */
+/*global $, jQuery*/
+jQuery.fn.fnTocSplit = function () {
+  return this.each(function (e) {
+    var posSplitCurrent = 222, /* setting */
+      posSplitPrevious,
+      elmDivSplitter = $(this),
+      mychilds = elmDivSplitter.children(),
+      elmSpliterLeftDiv = mychilds.first(),
+      elmSpliterRightDiv = mychilds.next(),
+      elmSpliterBarDiv = $('<div></div>'),
+      elmSpliterBarDivGhost,
+      elmSpliterBarButonDiv = $('<div></div>');
+
+    elmDivSplitter.css({
+      'position': 'absolute',
+      'top': '0',
+      'left': '0',
+      'height': '100%',
+      'width': '100%',
+      'margin': '0',
+      'padding': '0',
+    });
+    elmSpliterLeftDiv.css({
+      'background-color': '#ffffff',
+      'position': 'absolute',
+      'left': '0',
+      'height': '100%',
+      'margin': '0',
+      'overflow': 'auto',
+      'font-size': '14px',
+    });
+    elmSpliterRightDiv.css({
+      'position': 'fixed',
+      'right': '0',
+      'height': '100%',
+      'overflow': 'auto',
+      'padding': '0 5px 0 5px',
+      'z-index': '25',
+      'outline': 'none',
+    });
+
+    function funDragPerform(e) {
+      var incr = e.pageX;
+      elmSpliterBarDivGhost.css('left', incr);
+    }
+
+    /* Perform actual splitting and animate it */
+    function fnTocSplitTo(pos) {
+      pos = parseInt(pos, null);
+      posSplitPrevious = posSplitCurrent;
+      posSplitCurrent = pos;
+
+      var sizeB = elmDivSplitter.width() - pos - 10 - 10; /* setting splitBar padding */
+      elmSpliterLeftDiv.css({'width': pos + 'px'});
+      elmSpliterBarDiv.css({'left': pos});
+      elmSpliterRightDiv.css({'width': sizeB + 'px', 'left': pos + 10});
+
+      elmDivSplitter.queue(function () {
+        setTimeout(function () {
+          elmDivSplitter.dequeue();
+          mychilds.trigger('resize');
+        }, 22);
+      });
+    }
+
+    function funDragEnd(e) {
+      var p = elmSpliterBarDivGhost.position();
+      elmSpliterBarDivGhost.remove();
+      elmSpliterBarDivGhost = null;
+      mychilds.css("-webkit-user-select", "text");
+      $(document).unbind("mousemove", funDragPerform)
+        .unbind("mouseup", funDragEnd);
+      fnTocSplitTo(p.left);
+    }
+
+    function funDragStart(e) {
+      if (e.target !== this) {
+        return;
+      }
+      elmSpliterBarDivGhost = elmSpliterBarDiv.clone(false)
+        .insertAfter(elmSpliterLeftDiv);
+      elmSpliterBarDivGhost.attr({'id': 'idSpliterBarDivGhost'})
+        .css({
+          'position': 'absolute',
+          'background-color': '#cccccc',
+          'z-index': '250',
+          '-webkit-user-select': 'none',
+          'left': elmSpliterBarDiv.position().left,
+        });
+      mychilds.css({
+        '-webkit-user-select': 'none',
+        '-khtml-user-select': 'none',
+        '-moz-user-select': 'none'
+      });
+      $(document).bind("mousemove", funDragPerform).bind("mouseup", funDragEnd);
+    }
+
+    elmSpliterBarDiv.attr({'id': 'idSpliterBarDiv'})
+      .css({
+        'background-color': '#999999',
+        'cursor': 'e-resize',
+        'position': 'absolute',
+        'width': '10px',
+        'height': '100%',
+      })
+      .bind("mousedown", funDragStart)
+      .hover(
+        function () {
+          $(this).css({'background-color': '#DDDDDD'});
+        },
+        function () {
+          $(this).css({'background-color': '#999999'});
+        }
+      );
+    elmSpliterBarDiv.insertAfter(elmSpliterLeftDiv);
+    elmSpliterBarButonDiv.css({
+      'background-color': '#888888',
+      'position': 'relative',
+      'top': '40%',
+      'height': '15%',
+      'width': '10px',
+      'cursor': 'pointer'
+    });
+    elmSpliterBarButonDiv.attr({'id': 'idSpliterBarButonDiv'});
+    elmSpliterBarDiv.append(elmSpliterBarButonDiv);
+    elmSpliterBarButonDiv.mousedown(function (e) {
+      if (e.target !== this) {
+        return;
+      }
+      fnTocSplitTo((posSplitCurrent === 0) ? posSplitPrevious : 0);
+      return false;
+    });
+    fnTocSplitTo(posSplitCurrent);
+    $(window).bind('resize', function () {
+      fnTocSplitTo(posSplitCurrent);
+    });
+
+  });
+};
+
+/* Goes to Id, and blinks it. From HTML5-Outliner */
+function funTocTreeGotoId(id) {
+  var el, currentOpacity, currentTransition, duration, itr, blink;
+  location.href = '#' + id;
+  el = document.getElementById(id);
+  currentOpacity = window.getComputedStyle(el).opacity;
+  currentTransition = window.getComputedStyle(el).webkitTransition;
+  duration = 200;
+  itr = 0;
+  el.style.webkitTransitionProperty = 'opacity';
+  el.style.webkitTransitionDuration = duration + "ms";
+  el.style.webkitTransitionTimingFunction = 'ease';
+  blink = function () {
+    el.style.opacity = (itr % 2 === 0 ? 0 : currentOpacity);
+    if (itr < 3) {
+      itr += 1;
+      setTimeout(blink, duration);
+    } else {
+      el.style.webkitTransition = currentTransition;
+    }
+  };
+  blink();
+}
+
 
 /* Makes the display-style: block.
  * Modified from http://www.dhtmlgoodies.com/ */
-function fExpandAll(idTree){
-  var tocTreeLIs=document.getElementById(idTree).getElementsByTagName('li');
-  for(var no=0;no<tocTreeLIs.length;no++){
-    var subItems=tocTreeLIs[no].getElementsByTagName('ul');
-    if(subItems.length>0 && subItems[0].style.display!='block'){
-      fShowHideNode(false,tocTreeLIs[no].id);
+function fnTocTreeExpand_all(idTree) {
+  var tocTreeLIs = document.getElementById(idTree).getElementsByTagName('li'),
+    no,
+    subItems;
+  for (no = 0; no < tocTreeLIs.length; no += 1) {
+    subItems = tocTreeLIs[no].getElementsByTagName('ul');
+    if (subItems.length > 0 && subItems[0].style.display !== 'block') {
+      funTocTreeShowHideNode(false, tocTreeLIs[no].id);
     }
   }
 }
 
 /* Expands the first children. */
-function fExpandFirst(idTree){
-  var tocTreeLIs=document.getElementById(idTree).getElementsByTagName('li');
+function fnTocTreeExpand_first(idTree) {
+  var tocTreeLIs, subItems;
+  tocTreeLIs = document.getElementById(idTree).getElementsByTagName('li');
   /* expand the first ul-element */
-  var subItems=tocTreeLIs[0].getElementsByTagName('ul');
-  if(subItems.length>0 && subItems[0].style.display!='block'){
-    fShowHideNode(false,tocTreeLIs[0].id);
+  subItems = tocTreeLIs[0].getElementsByTagName('ul');
+  if (subItems.length > 0 && subItems[0].style.display !== 'block') {
+    funTocTreeShowHideNode(false, tocTreeLIs[0].id);
   }
 }
 
 /* expands all the parents only, of an element */
-function fExpandParent(elm){
-  var elmImg;
+function funTocTreeExpandParent(elm) {
+  var elmSpan, elmUl;
   /** the parent of a-elm is li-elm with parent a ul-elm. */
-  var elmUl=elm.parentNode.parentNode;
-  while (elmUl.tagName==="UL"){
-    elmUl.style.display='block';
+  elmUl = elm.parentNode.parentNode;
+  while (elmUl.tagName === 'UL') {
+    elmUl.style.display = 'block';
     /* the parent is li-elm, its first-child is img */
-    elmImg=elmUl.parentNode.firstChild;
-    if(elmImg.tagName==="IMG" && elmImg.src.indexOf(tocImgPlus)>=0){
-      elmImg.src=elmImg.src.replace(tocImgPlus,tocImgMinus);
+    elmSpan = elmUl.parentNode.firstChild;
+    if (elmSpan.tagName === 'SPAN' && elmSpan.innerHTML === '▶') {
+      elmSpan.innerHTML = '∇';
     }
-    elmUl=elmUl.parentNode.parentNode;
+    elmUl = elmUl.parentNode.parentNode;
   }
-
 }
 
-/* Makes the display-style: none.
- * Modified from http://www.dhtmlgoodies.com/ */
-function fCollapseAll(idTree){
-  var tocTreeLIs=document.getElementById(idTree).getElementsByTagName('li');
-  for(var no=0;no<tocTreeLIs.length;no++){
-    var subItems=tocTreeLIs[no].getElementsByTagName('ul');
-    if(subItems.length>0 && subItems[0].style.display=='block'){
-      fShowHideNode(false,tocTreeLIs[no].id);
+
+/* this is the page-listener */
+/*global chrome*/
+chrome.extension.onMessage.addListener(
+  function (request, sender, p) {
+    var
+      elmBody = document.body,
+      elmDivSplitter = document.createElement('div'), /* the general container*/
+      elmSpliterRightDiv = document.createElement('div'),
+      elmSpliterLeftDiv = document.createElement('div'),
+      elmTocBtnCollapse_All = document.createElement('input'),
+      elmTocBtnExp_All = document.createElement('input'),
+      elmPpath = document.createElement("p"),
+      elmPNote = document.createElement("p");
+
+    if (request.type === "toggleState") {
+      if (tocNoPowerstate === 0) {
+        tocNoPowerstate = 1;
+      } else if (tocNoPowerstate === 1) {
+        tocNoPowerstate = 0;
+      }
+      chrome.extension.sendMessage({
+        type: "setStateText",
+        value: tocNoPowerstate
+      });
+
+      /* create toc */
+      if (tocNoPowerstate === 1) {
+        tocNoIdTreeLi = 0;
+        elmDivSplitter.id = 'idDivSplitter';
+        /* remove from old-body its elements */
+        elmBody.innerHTML = '';
+        elmBody.appendChild(elmDivSplitter);
+
+        /* set on right-splitter the old-body */
+        elmSpliterRightDiv.id = 'idSpliterRightDiv';
+        elmSpliterRightDiv.innerHTML = contentOriginal;
+        elmDivSplitter.appendChild(elmSpliterRightDiv);
+
+        /* insert toc */
+        elmSpliterLeftDiv.id = 'idSpliterLefDiv';
+        elmSpliterLeftDiv.innerHTML = fnH5oGet_outlineHtml();
+        elmSpliterLeftDiv.getElementsByTagName("ul")[0].setAttribute('id', 'idTocTree');
+        /* insert collaplse-button */
+        elmTocBtnCollapse_All.setAttribute('id', 'idBtnCollapse_All');
+        elmTocBtnCollapse_All.setAttribute('type', 'button');
+        elmTocBtnCollapse_All.setAttribute('value', '▶');
+        elmTocBtnCollapse_All.setAttribute('title', 'Collapse-All');
+        elmTocBtnCollapse_All.setAttribute('class', 'classBtn');
+        $(elmTocBtnCollapse_All).click(
+          function (event) {
+            fnTocTreeCollapse_all('idTocTree');
+          }
+        );
+        elmSpliterLeftDiv.insertBefore(elmTocBtnCollapse_All, elmSpliterLeftDiv.firstChild);
+        /* insert expand-button */
+        elmTocBtnExp_All.setAttribute('id', 'idBtnExp_All');
+        elmTocBtnExp_All.setAttribute('type', 'button');
+        elmTocBtnExp_All.setAttribute('value', '∇');
+        elmTocBtnExp_All.setAttribute('title', 'Expand-All');
+        elmTocBtnExp_All.setAttribute('class', 'classBtn');
+        $(elmTocBtnExp_All).click(
+          function (event) {
+            fnTocTreeExpand_all('idTocTree');
+          }
+        );
+        elmSpliterLeftDiv.insertBefore(elmTocBtnExp_All, elmSpliterLeftDiv.firstChild);
+        /* insert site-structure menu */
+        /* insert page-path--element */
+        elmPpath.setAttribute('title', "© 2010-2013 Kaseluris.Nikos.1959");
+        elmPpath.innerHTML = 'ToC: ' + document.title;
+        elmSpliterLeftDiv.insertBefore(elmPpath, elmSpliterLeftDiv.firstChild);
+
+        /* toc: add note at the end */
+        elmPNote.innerHTML = 'Note: clicking on TEXT, you see its position on ToC.';
+        elmSpliterLeftDiv.appendChild(elmPNote);
+
+        $(elmSpliterLeftDiv).find("li > a").each(
+          /* what to do on clicking a link in toc */
+          function () {
+            $(this).click(
+              function (event) {
+                event.preventDefault();
+                var id = $(event.target).attr("href").split('#')[1];
+                funTocTreeGotoId(id);
+                funTocTreeHighlightItem(elmSpliterLeftDiv, this);
+                return false;
+              }
+            );
+            /* sets as title-attribute the text of a-element */
+            var txt = $(this).text();
+            $(this).attr('title', txt);
+          }
+        );
+
+        /* on content get-id */
+        $(elmSpliterRightDiv).find('*').not('a').each(
+          function () {
+            $(this).click(
+              function (event) {
+                if (event.stopPropagation) {
+                  event.stopPropagation();
+                } else {
+                  event.cancelBubble = true;
+                }
+
+                /* find the id of closest header */
+                var sID = 'to find heading id',
+                  elmSec = $(this);
+
+                /* if section exist, then find section's id */
+                if ($("section").length > 1) {
+                  while (!elmSec.get(0).tagName.match(/^SECTION/i)) {
+                    elmSec = elmSec.parent();
+                    if (elmSec.get(0).tagName.match(/^HEADER/i)) {
+                      break;
+                    }
+                  }
+                  if (elmSec.get(0).tagName.match(/^HEADER/i)) {
+                    sID = '#h5o-1';
+                  } else {
+                    sID = '#' + elmSec.attr('id');
+                  }
+                  if (sID === "") {
+                    sID = '#' + $(this).attr('id');
+                  }
+                } else {
+                  if ($(this).get(0).tagName.match(/^H/)) {
+                    sID = '#' + $(this).attr('id');
+                  } else {
+                    /* no section, then find previous header */
+                    sID = '#' + $(this).prevAll(":header").attr('id');
+                    if (sID === '#undefined') {
+                      sID = "#" + $(this).parents('p,table,ol,ul').prev(":header").attr('id');
+                    }
+                  }
+                }
+
+                $(elmSpliterLeftDiv).find('a').each(
+                  function () {
+                    var position, windowHeight;
+                    if ($(this).attr('href') === sID) {
+                      fnTocTreeCollapse_all('idTocTree');
+                      funTocTreeHighlightItem(elmSpliterLeftDiv, this);
+                      funTocTreeExpandParent(this);
+                      /* scroll to this element */
+                      $(elmSpliterLeftDiv).scrollTop(0);
+                      position = $(this).offset().top;
+                      windowHeight = $(window).height();
+                      $(elmSpliterLeftDiv).scrollTop(position - (windowHeight / 2));
+                    }
+                  }
+                );
+              }
+            );
+          }
+        );
+        elmDivSplitter.insertBefore(elmSpliterLeftDiv, elmDivSplitter.firstChild);
+
+        $("#idDivSplitter").fnTocSplit();
+
+        fnTocTreeInit();
+        fnTocTreeExpand_all('idTocTree');
+        fnTocTreeCollapse_all('idTocTree');
+        fnTocTreeExpand_first('idTocTree');
+        /* IF on idMetaWebpage_path paragraph we have and the classTocExpand
+         * then the toc expands-all */
+        if (document.getElementById("idMetaWebpage_path")) {
+          if (document.getElementById("idMetaWebpage_path").getAttribute('class') === 'classTocExpand') {
+            fnTocTreeExpand_all('idTocTree');
+          }
+        }
+
+        //focus div
+        $("#idSpliterRightDiv").attr("tabindex", -1).focus();
+
+      } else if (tocNoPowerstate === 0) {
+        document.body.innerHTML = contentOriginal;
+        /** splitter makes margin 0, default 8. */
+        $("body").css('margin', '8px 0 8px 0px');
+      }
+    } else if (request.type === "requestState") {
+      chrome.extension.sendMessage({type: "setStateText", value: tocNoPowerstate});
     }
   }
-}
-
-/*
- * Modified from http://www.dhtmlgoodies.com/ */
-function fShowHideNode(e,inputId)
-{
-  if(inputId){
-    if(!document.getElementById(inputId))
-      return;
-    thisNode=document.getElementById(inputId).getElementsByTagName('img')[0];
-  }else{
-    thisNode=this;
-    if(this.tagName=='a')
-      thisNode=this.parentNode.getElementsByTagName('img')[0];
-  }
-  var parentNode=thisNode.parentNode;
-  if(thisNode.src.indexOf(tocImgPlus)>=0){
-    thisNode.src=thisNode.src.replace(tocImgPlus,tocImgMinus);
-    parentNode.getElementsByTagName('ul')[0].style.display='block';
-  }else{
-    thisNode.src=thisNode.src.replace(tocImgMinus,tocImgPlus);
-    parentNode.getElementsByTagName('ul')[0].style.display='none';
-  }
-  return false;
-}
-
-/* Inserts images with onclick events, before a-elements. Sets id on li.
- * Modified from http://www.dhtmlgoodies.com/ */
-function fInitTree()
-{
-  var tocTree=document.getElementById('idTocTree');
-  var tocTreeLIs=tocTree.getElementsByTagName('li'); // Get an array of all menu items
-  for(var no=0;no<tocTreeLIs.length;no++){
-    tocNoIdTreeLi++;
-    var subItems=tocTreeLIs[no].getElementsByTagName('ul');
-    var img=document.createElement('img');
-    img.src=tocImgFolder + tocImgPlus;
-    img.onclick=fShowHideNode;
-    if(subItems.length==0)
-      img.src=tocImgFolder + tocImgItem;
-    var aTag=tocTreeLIs[no].getElementsByTagName('a')[0];
-    tocTreeLIs[no].insertBefore(img,aTag);
-    if(!tocTreeLIs[no].id)
-      tocTreeLIs[no].id='idTocTreeLI' + tocNoIdTreeLi;
-  }
-}
-
-/* Highlights ONE item in toc-list */
-function fHighlightItem(tocElDivToc,elm){
-  /* removes existing highlighting */
-  var tocTreeAs=tocElDivToc.getElementsByTagName('a');
-  for(var no=0;no<tocTreeAs.length;no++){
-    tocTreeAs[no].removeAttribute("class");
-  }
-  elm.setAttribute('class','classTocTreeHighlight');
-}
+);

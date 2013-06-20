@@ -1,71 +1,78 @@
 /*
- * version: 2010.12.05
+ * version.last: 2013.06.19
+ * version.previous: 2010.12.05
  */
 
 
-#idSplitBar {
-	width: 8px;
-	background: #669;
+#idSpliterBarDiv {
+  background: #777777; /* Old browsers */
+  background: -webkit-linear-gradient(left, #777777 0%,#bbbbbb 50%,#777777 100%); /* Chrome10+,Safari5.1+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#777777), color-stop(50%,#bbbbbb), color-stop(100%,#777777)); /* Chrome,Safari4+ */
+  background: -moz-linear-gradient(left,  #777777 0%, #000000 50%, #777777 100%); /* FF3.6+ */
+  background: -o-linear-gradient(left,  #777777 0%,#bbbbbb 50%,#777777 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  #777777 0%,#bbbbbb 50%,#777777 100%); /* IE10+ */
+  background: linear-gradient(to right,  #777777 0%,#bbbbbb 50%,#777777 100%); /* W3C */
 }
-#idSplitBar.active, #idSplitBar:hover {
-	background-color: #c66;
-	width: 8px;
+#idSpliterBarButonDiv {
+  background: #333333; /* Old browsers */
+  background: -webkit-linear-gradient(left, #333333 0%,#999999 50%,#333333 100%); /* Chrome10+,Safari5.1+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#333333), color-stop(50%,#999999), color-stop(100%,#333333)); /* Chrome,Safari4+ */
+  background: -moz-linear-gradient(left,  #333333 0%, #000000 50%, #333333 100%); /* FF3.6+ */
+  background: -o-linear-gradient(left,  #333333 0%,#999999 50%,#333333 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  #333333 0%,#999999 50%,#333333 100%); /* IE10+ */
+  background: linear-gradient(to right,  #333333 0%,#999999 50%,#333333 100%); /* W3C */
+}
+#idSpliterLefDiv {
+  background: #dddddd; /* Old browsers */
+  background: -webkit-gradient(linear, right top, left top, color-stop(#dddddd), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(right,  #dddddd,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+  background: -moz-linear-gradient(right,  #dddddd, #ffffff 100%); /* FF3.6+ */
+  background: -o-linear-gradient(right,  #dddddd,#ffffff 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(right,  #dddddd,#ffffff 100%); /* IE10+ */
+  background: linear-gradient(to left,  #dddddd,#ffffff 100%); /* W3C */
+}
+#idSpliterLefDiv > input[type="button"] {
+  padding: 2px 7px 2px 7px;
+  margin-left: 5px;
+  margin-bottom: 10px;
 }
 
-
-/****************************************************/
-
-#idTocDivToc{
-	position:absolute;
-	overflow:auto!important;
-
-	background-color:#FFFFFA!important;
-	font-size:14px!important;
-	line-height:18px;
-	text-align:left;
-}
-
-#idTocTree{
-	margin:0px;
-	padding:0px;
-}
-#idTocTree ul{	/* Sub menu groups */
-	margin-left:20px;	/* Left spacing */
-	padding-left:0px;
-	display:none;	/* Initially hide sub nodes */
-}
-#idTocTree li{
-	list-style-type:none;
-	vertical-align:middle;
-	white-space:nowrap;
-}
-#idTocTree li a{	/* Node links */
-	color:#000;
-	text-decoration:none;
-	font-family:arial;
-	font-size:12px;
-	padding-left:1px;
-}
 .classTocTreeHighlight {
-	background-color:yellow!important;
+  background-color: yellow;
 }
 
-/* *********************** CONTENT ********************* */
-
-#idTocDivCntnt{
-	position:absolute;
-	top:0px;
-	left:26.5%;
-	bottom:0px;
-	right:0px;
-	overflow:auto;
-
-	text-align:left;
-	z-index:9999;
+#idTocTree {
+  margin: 0px;
+  padding: 0px;
 }
-#idTocDivCntnt img,#idTocDivCntnt table{
-	max-width:100%!important;
-	overflow:auto;
+#idTocTree li a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-family: arial;
+  font-size: 12px;
+  padding-left: 1px;
+}
+#idTocTree ul {
+  margin-left: 20px;
+  padding-left: 0px;
+}
+#idTocTree li {
+  list-style-type: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+span.classSpanListIcon {
+  cursor:pointer;
 }
 
+.classBtn {
+  -moz-border-radius: 9px;
+  -webkit-border-radius: 9px;
+  -khtml-border-radius: 9px;
+  border-radius: 5px;
+  background: linear-gradient(to right, #bbbbbb, #ffffff); /* W3C */
+}
+.classBtn:hover {
+  background:#e0f2f7;
+}
 
