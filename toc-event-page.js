@@ -7,7 +7,7 @@ chrome.browserAction.setBadgeBackgroundColor({color:[0,0,255,255]});
  *
  *
  * @modified 2013.06.17
- * @since 2010.10.03 (v00.02.03)
+ * @since 2010.10.03 (v1)
  * @author HoKoNoUmo
  */
 chrome.browserAction.onClicked.addListener(
@@ -21,7 +21,7 @@ chrome.browserAction.onClicked.addListener(
  * Changes the on/off badge-text, listening from pages.
  *
  * @modified 2013.06.17
- * @since 2010.10.03 (v00.02.03)
+ * @since 2010.10.03 (v1)
  * @author HoKoNoUmo
  */
 chrome.extension.onMessage.addListener(
@@ -35,6 +35,12 @@ chrome.extension.onMessage.addListener(
   }
 );
 
+/**
+ *
+ * @modified 2013.06.20
+ * @since 2010.10.03 (v1)
+ * @author HoKoNoUmo
+ */
 chrome.tabs.onRemoved.addListener(
   function(idTab){
     tocCurrent_tab_id = null;
@@ -46,7 +52,7 @@ chrome.tabs.onRemoved.addListener(
  *
  *
  * @modified 2013.06.20
- * @since 2010.10.03 (v00.02.03)
+ * @since 2010.10.03 (v1)
  * @author HoKoNoUmo
  */
 chrome.tabs.onSelectionChanged.addListener(
@@ -61,7 +67,7 @@ chrome.tabs.onSelectionChanged.addListener(
  * the existing-state.
  *
  * @modified 2013.06.17
- * @since 2010.10.03 (v00.02.03)
+ * @since 2010.10.03 (v1)
  * @author HoKoNoUmo
  */
 chrome.tabs.onUpdated.addListener(
@@ -79,7 +85,7 @@ chrome.tabs.onUpdated.addListener(
  * Will display a BadgeText if we can display or no the ToC
  *
  * @modified 2013.06.18
- * @since 2010.10.03 (v00.02.03)
+ * @since 2010.10.03 (v1)
  * @author HoKoNoUmo
  */
 function fnSet_state_text(nPower_state) {

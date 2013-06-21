@@ -1,5 +1,5 @@
 /*
- * version: 2013.06.20
+ * version: 2013.06.21,
  * toc.js - the content-scripts of Table-of-contents-chrome-extension.
  *
  * Copyright (C) 2010-2013 Kaseluris.Nikos.1959,
@@ -441,7 +441,7 @@ start:
 
 /*
  * Modified from http://www.dhtmlgoodies.com/ */
-function funTocTreeShowHideNode(e, inputId) {
+function fnTocTreeShow_hide_node(e, inputId) {
   var nodeThis, parentNode;
   if (inputId) {
     if (!document.getElementById(inputId)) {
@@ -474,7 +474,7 @@ function fnTocTreeCollapse_all(idTree) {
   for (no = 0; no < tocTreeLIs.length; no += 1) {
     subItems = tocTreeLIs[no].getElementsByTagName('ul');
     if (subItems.length > 0 && subItems[0].style.display === 'block') {
-      funTocTreeShowHideNode(false, tocTreeLIs[no].id);
+      fnTocTreeShow_hide_node(false, tocTreeLIs[no].id);
     }
   }
 }
@@ -494,7 +494,7 @@ function fnTocTreeInit() {
     subItems = tocTreeLIs[no].getElementsByTagName('ul');
     elmSpan = document.createElement('span');
     elmSpan.innerHTML = '▶';
-    elmSpan.onclick = funTocTreeShowHideNode;
+    elmSpan.onclick = fnTocTreeShow_hide_node;
     elmSpan.setAttribute('class', 'classSpanListIcon');
     if (subItems.length === 0) {
       elmSpan.innerHTML = '◇';
@@ -509,7 +509,7 @@ function fnTocTreeInit() {
 }
 
 /* Highlights ONE item in toc-list */
-function funTocTreeHighlightItem(elmSpliterLeftDiv, elm) {
+function fnTocTreeHighlight_item(elmSpliterLeftDiv, elm) {
   /* removes existing highlighting */
   var tocTreeAs = elmSpliterLeftDiv.getElementsByTagName('a'),
     no;
@@ -632,7 +632,6 @@ jQuery.fn.fnTocSplit = function () {
 
     elmSpliterBarDiv.attr({'id': 'idSpliterBarDiv'})
       .css({
-        'background-color': '#999999',
         'cursor': 'e-resize',
         'position': 'absolute',
         'width': '10px',
@@ -649,7 +648,6 @@ jQuery.fn.fnTocSplit = function () {
       );
     elmSpliterBarDiv.insertAfter(elmSpliterLeftDiv);
     elmSpliterBarButonDiv.css({
-      'background-color': '#888888',
       'position': 'relative',
       'top': '40%',
       'height': '15%',
@@ -666,15 +664,11 @@ jQuery.fn.fnTocSplit = function () {
       return false;
     });
     fnTocSplitTo(posSplitCurrent);
-    $(window).bind('resize', function () {
-      fnTocSplitTo(posSplitCurrent);
-    });
-
   });
 };
 
 /* Goes to Id, and blinks it. From HTML5-Outliner */
-function funTocTreeGotoId(id) {
+function fnTocTreeGo_to_id(id) {
   var el, currentOpacity, currentTransition, duration, itr, blink;
   location.href = '#' + id;
   el = document.getElementById(id);
@@ -707,7 +701,7 @@ function fnTocTreeExpand_all(idTree) {
   for (no = 0; no < tocTreeLIs.length; no += 1) {
     subItems = tocTreeLIs[no].getElementsByTagName('ul');
     if (subItems.length > 0 && subItems[0].style.display !== 'block') {
-      funTocTreeShowHideNode(false, tocTreeLIs[no].id);
+      fnTocTreeShow_hide_node(false, tocTreeLIs[no].id);
     }
   }
 }
@@ -719,12 +713,12 @@ function fnTocTreeExpand_first(idTree) {
   /* expand the first ul-element */
   subItems = tocTreeLIs[0].getElementsByTagName('ul');
   if (subItems.length > 0 && subItems[0].style.display !== 'block') {
-    funTocTreeShowHideNode(false, tocTreeLIs[0].id);
+    fnTocTreeShow_hide_node(false, tocTreeLIs[0].id);
   }
 }
 
 /* expands all the parents only, of an element */
-function funTocTreeExpandParent(elm) {
+function fnTocTreeExpand_parent(elm) {
   var elmSpan, elmUl;
   /** the parent of a-elm is li-elm with parent a ul-elm. */
   elmUl = elm.parentNode.parentNode;
@@ -813,7 +807,7 @@ chrome.extension.onMessage.addListener(
         elmSpliterLeftDiv.insertBefore(elmPpath, elmSpliterLeftDiv.firstChild);
 
         /* toc: add note at the end */
-        elmPNote.innerHTML = 'Note: clicking on TEXT, you see its position on ToC.';
+        elmPNote.innerHTML = 'Note: clicking on a HEADING or TEXT, you see its position on ToC.';
         elmSpliterLeftDiv.appendChild(elmPNote);
 
         $(elmSpliterLeftDiv).find("li > a").each(
@@ -823,8 +817,8 @@ chrome.extension.onMessage.addListener(
               function (event) {
                 event.preventDefault();
                 var id = $(event.target).attr("href").split('#')[1];
-                funTocTreeGotoId(id);
-                funTocTreeHighlightItem(elmSpliterLeftDiv, this);
+                fnTocTreeGo_to_id(id);
+                fnTocTreeHighlight_item(elmSpliterLeftDiv, this);
                 return false;
               }
             );
@@ -835,7 +829,7 @@ chrome.extension.onMessage.addListener(
         );
 
         /* on content get-id */
-        $(elmSpliterRightDiv).find('*').not('a').each(
+        $(elmSpliterRightDiv).find('*').each(
           function () {
             $(this).click(
               function (event) {
@@ -870,9 +864,15 @@ chrome.extension.onMessage.addListener(
                     sID = '#' + $(this).attr('id');
                   } else {
                     /* no section, then find previous header */
-                    sID = '#' + $(this).prevAll(":header").attr('id');
+                    /* look at parent-elements */
+                    sID = "#" + $(this).parents(':header').attr('id');
                     if (sID === '#undefined') {
-                      sID = "#" + $(this).parents('p,table,ol,ul').prev(":header").attr('id');
+                      /* look prev sibling elements */
+                      sID = '#' + $(this).prevAll(':header').attr('id');
+                    }
+                    if (sID === '#undefined') {
+                      /* find parent p AND then sibling */
+                      sID = "#" + $(this).parents('p,table,ol,ul').prevAll(":header").attr('id');
                     }
                   }
                 }
@@ -882,8 +882,8 @@ chrome.extension.onMessage.addListener(
                     var position, windowHeight;
                     if ($(this).attr('href') === sID) {
                       fnTocTreeCollapse_all('idTocTree');
-                      funTocTreeHighlightItem(elmSpliterLeftDiv, this);
-                      funTocTreeExpandParent(this);
+                      fnTocTreeHighlight_item(elmSpliterLeftDiv, this);
+                      fnTocTreeExpand_parent(this);
                       /* scroll to this element */
                       $(elmSpliterLeftDiv).scrollTop(0);
                       position = $(this).offset().top;
@@ -912,12 +912,12 @@ chrome.extension.onMessage.addListener(
           }
         }
 
-        //focus div
+        /* focus div */
         $("#idSpliterRightDiv").attr("tabindex", -1).focus();
 
       } else if (tocNoPowerstate === 0) {
         document.body.innerHTML = contentOriginal;
-        /** splitter makes margin 0, default 8. */
+        /* splitter makes margin 0, default 8. */
         $("body").css('margin', '8px 0 8px 0px');
       }
     } else if (request.type === "requestState") {
