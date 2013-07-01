@@ -1,5 +1,5 @@
 /*
- * version.last: 2013.06.19
+ * version.last: 2013.06.19 minor 2013.07.01
  * version.previous: 2010.12.05
  */
 
@@ -30,15 +30,17 @@
   background: -o-linear-gradient(right,  #dddddd,#ffffff 100%); /* Opera 11.10+ */
   background: -ms-linear-gradient(right,  #dddddd,#ffffff 100%); /* IE10+ */
   background: linear-gradient(to left,  #dddddd,#ffffff 100%); /* W3C */
+  line-height: 105%;
+}
+#idSpliterLefDiv > p {
+  text-align: left;
+  text-indent: -25px;
+  margin-left: 25px;
 }
 #idSpliterLefDiv > input[type="button"] {
   padding: 2px 7px 2px 7px;
   margin-left: 5px;
   margin-bottom: 10px;
-}
-
-.classTocTreeHighlight {
-  background-color: yellow;
 }
 
 #idTocTree {
@@ -58,9 +60,19 @@
 }
 #idTocTree li {
   list-style-type: none;
+  list-style-image: none;
   vertical-align: middle;
   white-space: nowrap;
 }
+#idTocTree li a:hover {
+  color: #0000aa;
+  text-decoration: underline;
+}
+
+.classTocTreeHighlight {
+  background-color: yellow;
+}
+
 span.classSpanListIcon {
   cursor:pointer;
 }
