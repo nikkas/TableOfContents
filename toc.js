@@ -1,5 +1,5 @@
 /*
- * version: 2013.06.21,
+ * version: 2013.07.20,
  * toc.js - the content-scripts of Table-of-contents-chrome-extension.
  *
  * Copyright (C) 2010-2013 Kaseluris.Nikos.1959,
@@ -55,8 +55,8 @@ var tocNoPowerstate = 0,
   tocNoIdTreeLi;
 
 /* Returns an html-ul-element that holds the outline.
- * <ul id = "idTocTree">
- *   <li id = "idTocTreeLI1"><img src = "...png"><a href = "#h5o-1" title = "...">...</a>
+ * <ul id = "idCrxTocTree">
+ *   <li id = "idCrxTocTreeLI1"><img src = "...png"><a href = "#h5o-1" title = "...">...</a>
  *   ...
  *   </li>
  * </ul>
@@ -483,7 +483,7 @@ function fnTocTreeCollapse_all(idTree) {
  * Sets id on li-elements.
  * Modified from http://www.dhtmlgoodies.com/ */
 function fnTocTreeInit() {
-  var tocTree = document.getElementById('idTocTree'),
+  var tocTree = document.getElementById('idCrxTocTree'),
     tocTreeLIs = tocTree.getElementsByTagName('li'), /* Get an array of all menu items */
     no,
     subItems,
@@ -503,7 +503,7 @@ function fnTocTreeInit() {
     aTag = tocTreeLIs[no].getElementsByTagName('a')[0];
     tocTreeLIs[no].insertBefore(elmSpan, aTag);
     if (!tocTreeLIs[no].id) {
-      tocTreeLIs[no].id = 'idTocTreeLI' + tocNoIdTreeLi;
+      tocTreeLIs[no].id = 'idCrxTocTreeLI' + tocNoIdTreeLi;
     }
   }
 }
@@ -516,7 +516,7 @@ function fnTocTreeHighlight_item(elmSpliterLeftDiv, elm) {
   for (no = 0; no < tocTreeAs.length; no += 1) {
     tocTreeAs[no].removeAttribute('class');
   }
-  elm.setAttribute('class', 'classTocTreeHighlight');
+  elm.setAttribute('class', 'classCrxTocTreeHighlight');
 }
 
 /*
@@ -775,7 +775,7 @@ chrome.extension.onMessage.addListener(
         /* insert toc */
         elmSpliterLeftDiv.id = 'idSpliterLefDiv';
         elmSpliterLeftDiv.innerHTML = fnH5oGet_outlineHtml();
-        elmSpliterLeftDiv.getElementsByTagName("ul")[0].setAttribute('id', 'idTocTree');
+        elmSpliterLeftDiv.getElementsByTagName("ul")[0].setAttribute('id', 'idCrxTocTree');
         /* insert collaplse-button */
         elmTocBtnCollapse_All.setAttribute('id', 'idBtnCollapse_All');
         elmTocBtnCollapse_All.setAttribute('type', 'button');
@@ -784,7 +784,7 @@ chrome.extension.onMessage.addListener(
         elmTocBtnCollapse_All.setAttribute('class', 'classBtn');
         $(elmTocBtnCollapse_All).click(
           function (event) {
-            fnTocTreeCollapse_all('idTocTree');
+            fnTocTreeCollapse_all('idCrxTocTree');
           }
         );
         elmSpliterLeftDiv.insertBefore(elmTocBtnCollapse_All, elmSpliterLeftDiv.firstChild);
@@ -796,7 +796,7 @@ chrome.extension.onMessage.addListener(
         elmTocBtnExp_All.setAttribute('class', 'classBtn');
         $(elmTocBtnExp_All).click(
           function (event) {
-            fnTocTreeExpand_all('idTocTree');
+            fnTocTreeExpand_all('idCrxTocTree');
           }
         );
         elmSpliterLeftDiv.insertBefore(elmTocBtnExp_All, elmSpliterLeftDiv.firstChild);
@@ -881,7 +881,7 @@ chrome.extension.onMessage.addListener(
                   function () {
                     var position, windowHeight;
                     if ($(this).attr('href') === sID) {
-                      fnTocTreeCollapse_all('idTocTree');
+                      fnTocTreeCollapse_all('idCrxTocTree');
                       fnTocTreeHighlight_item(elmSpliterLeftDiv, this);
                       fnTocTreeExpand_parent(this);
                       /* scroll to this element */
@@ -901,14 +901,14 @@ chrome.extension.onMessage.addListener(
         $("#idDivSplitter").fnTocSplit();
 
         fnTocTreeInit();
-        fnTocTreeExpand_all('idTocTree');
-        fnTocTreeCollapse_all('idTocTree');
-        fnTocTreeExpand_first('idTocTree');
+        fnTocTreeExpand_all('idCrxTocTree');
+        fnTocTreeCollapse_all('idCrxTocTree');
+        fnTocTreeExpand_first('idCrxTocTree');
         /* IF on idMetaWebpage_path paragraph we have and the classTocExpand
          * then the toc expands-all */
         if (document.getElementById("idMetaWebpage_path")) {
           if (document.getElementById("idMetaWebpage_path").getAttribute('class') === 'classTocExpand') {
-            fnTocTreeExpand_all('idTocTree');
+            fnTocTreeExpand_all('idCrxTocTree');
           }
         }
 

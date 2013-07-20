@@ -1,5 +1,5 @@
 /*
- * version.last: 2013.06.19 minor 2013.07.01
+ * version.last: 2013.06.19 minor 2013.07.20
  * version.previous: 2010.12.05
  */
 
@@ -43,34 +43,34 @@
   margin-bottom: 10px;
 }
 
-#idTocTree {
+#idCrxTocTree {
   margin: 0px;
   padding: 0px;
 }
-#idTocTree li a {
+#idCrxTocTree li a {
   color: rgb(0, 0, 0);
   text-decoration: none;
   font-family: arial;
   font-size: 12px;
   padding-left: 1px;
 }
-#idTocTree ul {
+#idCrxTocTree ul {
   margin-left: 20px;
   padding-left: 0px;
 }
-#idTocTree li {
+#idCrxTocTree li {
   list-style-type: none;
   list-style-image: none;
   vertical-align: middle;
   white-space: nowrap;
 }
-#idTocTree li a:hover {
+#idCrxTocTree li a:hover {
   color: #0000aa;
   text-decoration: underline;
 }
 
-.classTocTreeHighlight {
-  background-color: yellow;
+.classCrxTocTreeHighlight {
+  background: yellow !important;
 }
 
 span.classSpanListIcon {

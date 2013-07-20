@@ -1,6 +1,6 @@
 {
   "name": "Table-of-contents-crx",
-  "version": "2013.7.1.7",
+  "version": "2013.7.20.8",
   "manifest_version": 2,
 
   "description": "Creates an expandable Table-of-Contents of ANY web-page with headings.",
