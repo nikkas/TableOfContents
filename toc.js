@@ -1,5 +1,5 @@
 /*
- * version: 2013.07.20,
+ * version: 2013.07.28,
  * toc.js - the content-scripts of Table-of-contents-chrome-extension.
  *
  * Copyright (C) 2010-2013 Kaseluris.Nikos.1959,
@@ -614,7 +614,7 @@ jQuery.fn.fnTocSplit = function () {
       }
       elmSpliterBarDivGhost = elmSpliterBarDiv.clone(false)
         .insertAfter(elmSpliterLeftDiv);
-      elmSpliterBarDivGhost.attr({'id': 'idSpliterBarDivGhost'})
+      elmSpliterBarDivGhost.attr({'id': 'idCrxTocSpliterBarDivGhost'})
         .css({
           'position': 'absolute',
           'background-color': '#cccccc',
@@ -630,7 +630,7 @@ jQuery.fn.fnTocSplit = function () {
       $(document).bind("mousemove", funDragPerform).bind("mouseup", funDragEnd);
     }
 
-    elmSpliterBarDiv.attr({'id': 'idSpliterBarDiv'})
+    elmSpliterBarDiv.attr({'id': 'idCrxTocSpliterBarDiv'})
       .css({
         'cursor': 'e-resize',
         'position': 'absolute',
@@ -654,7 +654,7 @@ jQuery.fn.fnTocSplit = function () {
       'width': '10px',
       'cursor': 'pointer'
     });
-    elmSpliterBarButonDiv.attr({'id': 'idSpliterBarButonDiv'});
+    elmSpliterBarButonDiv.attr({'id': 'idCrxTocSpliterBarButonDiv'});
     elmSpliterBarDiv.append(elmSpliterBarButonDiv);
     elmSpliterBarButonDiv.mousedown(function (e) {
       if (e.target !== this) {
@@ -768,12 +768,12 @@ chrome.extension.onMessage.addListener(
         elmBody.appendChild(elmDivSplitter);
 
         /* set on right-splitter the old-body */
-        elmSpliterRightDiv.id = 'idSpliterRightDiv';
+        elmSpliterRightDiv.id = 'idCrxTocSpliterRightDiv';
         elmSpliterRightDiv.innerHTML = contentOriginal;
         elmDivSplitter.appendChild(elmSpliterRightDiv);
 
         /* insert toc */
-        elmSpliterLeftDiv.id = 'idSpliterLefDiv';
+        elmSpliterLeftDiv.id = 'idCrxTocSpliterLefDiv';
         elmSpliterLeftDiv.innerHTML = fnH5oGet_outlineHtml();
         elmSpliterLeftDiv.getElementsByTagName("ul")[0].setAttribute('id', 'idCrxTocTree');
         /* insert collaplse-button */
@@ -781,7 +781,7 @@ chrome.extension.onMessage.addListener(
         elmTocBtnCollapse_All.setAttribute('type', 'button');
         elmTocBtnCollapse_All.setAttribute('value', '▶');
         elmTocBtnCollapse_All.setAttribute('title', 'Collapse-All');
-        elmTocBtnCollapse_All.setAttribute('class', 'classBtn');
+        elmTocBtnCollapse_All.setAttribute('class', 'classCrxTocBtn');
         $(elmTocBtnCollapse_All).click(
           function (event) {
             fnTocTreeCollapse_all('idCrxTocTree');
@@ -793,7 +793,7 @@ chrome.extension.onMessage.addListener(
         elmTocBtnExp_All.setAttribute('type', 'button');
         elmTocBtnExp_All.setAttribute('value', '∇');
         elmTocBtnExp_All.setAttribute('title', 'Expand-All');
-        elmTocBtnExp_All.setAttribute('class', 'classBtn');
+        elmTocBtnExp_All.setAttribute('class', 'classCrxTocBtn');
         $(elmTocBtnExp_All).click(
           function (event) {
             fnTocTreeExpand_all('idCrxTocTree');
@@ -913,7 +913,7 @@ chrome.extension.onMessage.addListener(
         }
 
         /* focus div */
-        $("#idSpliterRightDiv").attr("tabindex", -1).focus();
+        $("#idCrxTocSpliterRightDiv").attr("tabindex", -1).focus();
 
       } else if (tocNoPowerstate === 0) {
         document.body.innerHTML = contentOriginal;

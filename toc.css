@@ -1,10 +1,10 @@
 /*
- * version.last: 2013.06.19 minor 2013.07.20
+ * version.last: 2013.06.19 minor 2013.07.28
  * version.previous: 2010.12.05
  */
 
 
-#idSpliterBarDiv {
+#idCrxTocSpliterBarDiv {
   background: #777777; /* Old browsers */
   background: -webkit-linear-gradient(left, #777777 0%,#bbbbbb 50%,#777777 100%); /* Chrome10+,Safari5.1+ */
   background: -webkit-gradient(linear, left top, right top, color-stop(0%,#777777), color-stop(50%,#bbbbbb), color-stop(100%,#777777)); /* Chrome,Safari4+ */
@@ -13,7 +13,7 @@
   background: -ms-linear-gradient(left,  #777777 0%,#bbbbbb 50%,#777777 100%); /* IE10+ */
   background: linear-gradient(to right,  #777777 0%,#bbbbbb 50%,#777777 100%); /* W3C */
 }
-#idSpliterBarButonDiv {
+#idCrxTocSpliterBarButonDiv {
   background: #333333; /* Old browsers */
   background: -webkit-linear-gradient(left, #333333 0%,#999999 50%,#333333 100%); /* Chrome10+,Safari5.1+ */
   background: -webkit-gradient(linear, left top, right top, color-stop(0%,#333333), color-stop(50%,#999999), color-stop(100%,#333333)); /* Chrome,Safari4+ */
@@ -22,7 +22,7 @@
   background: -ms-linear-gradient(left,  #333333 0%,#999999 50%,#333333 100%); /* IE10+ */
   background: linear-gradient(to right,  #333333 0%,#999999 50%,#333333 100%); /* W3C */
 }
-#idSpliterLefDiv {
+#idCrxTocSpliterLefDiv {
   background: #dddddd; /* Old browsers */
   background: -webkit-gradient(linear, right top, left top, color-stop(#dddddd), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(right,  #dddddd,#ffffff 100%); /* Chrome10+,Safari5.1+ */
@@ -32,12 +32,12 @@
   background: linear-gradient(to left,  #dddddd,#ffffff 100%); /* W3C */
   line-height: 105%;
 }
-#idSpliterLefDiv > p {
+#idCrxTocSpliterLefDiv > p {
   text-align: left;
   text-indent: -25px;
   margin-left: 25px;
 }
-#idSpliterLefDiv > input[type="button"] {
+#idCrxTocSpliterLefDiv > input[type="button"] {
   padding: 2px 7px 2px 7px;
   margin-left: 5px;
   margin-bottom: 10px;
@@ -68,6 +68,9 @@
   color: #0000aa;
   text-decoration: underline;
 }
+#idCrxTocTree span {
+  border-bottom: none;
+}
 
 .classCrxTocTreeHighlight {
   background: yellow !important;
@@ -77,14 +80,14 @@ span.classSpanListIcon {
   cursor:pointer;
 }
 
-.classBtn {
+.classCrxTocBtn {
   -moz-border-radius: 9px;
   -webkit-border-radius: 9px;
   -khtml-border-radius: 9px;
   border-radius: 5px;
   background: linear-gradient(to right, #bbbbbb, #ffffff); /* W3C */
 }
-.classBtn:hover {
+.classCrxTocBtn:hover {
   background:#e0f2f7;
 }
 
