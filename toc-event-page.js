@@ -1,4 +1,17 @@
-//contains extension's only functionality.
+/**
+ * contains extension's only functionality.
+ *
+ * @version.last 2013.9.6.10
+ * @version.previous: 2013.7.28.9
+ * @version.previous: 2013.7.20.8
+ * @version.previous: 2013.7.1.7
+ * @version.previous: 2013.6.21.5
+ * @version.previous: 2013.6.20.4
+ * @version.previous: 2010.12.6.3
+ * @version.previous: 2010.11.14.2
+ * @version.previous: 2010.10.23.1
+ * @author HoKoNoUmo
+ */
 var tocCurrent_tab_id = null;
 
 chrome.browserAction.setBadgeBackgroundColor({color:[0,0,255,255]});
@@ -20,7 +33,7 @@ chrome.browserAction.onClicked.addListener(
 /**
  * Changes the on/off badge-text, listening from pages.
  *
- * @modified 2013.06.17
+ * @modified 2013.09.05
  * @since 2010.10.03 (v1)
  * @author HoKoNoUmo
  */
@@ -30,21 +43,21 @@ chrome.extension.onMessage.addListener(
       return;
     }
     if (request.type === "setStateText") {
-      fnSet_state_text(request.value);
+      fcnSet_state_text(request.value);
     }
   }
 );
 
 /**
  *
- * @modified 2013.06.20
+ * @modified 2013.09.05
  * @since 2010.10.03 (v1)
  * @author HoKoNoUmo
  */
 chrome.tabs.onRemoved.addListener(
   function(idTab){
     tocCurrent_tab_id = null;
-    fnSet_state_text(0);
+    fcnSet_state_text(0);
   }
 );
 
@@ -57,7 +70,7 @@ chrome.tabs.onRemoved.addListener(
  */
 chrome.tabs.onSelectionChanged.addListener(
   function (tabId, selectInfo) {
-//    fnSet_state_text(0);
+//    fcnSet_state_text(0);
   }
 );
 
@@ -66,7 +79,7 @@ chrome.tabs.onSelectionChanged.addListener(
  * On current-tab, on "reload" set off-state. On click, set
  * the existing-state.
  *
- * @modified 2013.06.17
+ * @modified 2013.09.05
  * @since 2010.10.03 (v1)
  * @author HoKoNoUmo
  */
@@ -75,7 +88,7 @@ chrome.tabs.onUpdated.addListener(
     if (tocCurrent_tab_id !== tab.id) {
       return;
     }
-    fnSet_state_text(0);
+    fcnSet_state_text(0);
     chrome.tabs.sendMessage(tabId,{type:"requestState"});
   }
 );
@@ -84,11 +97,11 @@ chrome.tabs.onUpdated.addListener(
 /**
  * Will display a BadgeText if we can display or no the ToC
  *
- * @modified 2013.06.18
+ * @modified 2013.09.05
  * @since 2010.10.03 (v1)
  * @author HoKoNoUmo
  */
-function fnSet_state_text(nPower_state) {
+function fcnSet_state_text(nPower_state) {
   switch (nPower_state) {
     case 0:
       chrome.browserAction.setBadgeText({text: ""});//OFF STATE

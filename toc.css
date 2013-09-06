@@ -1,37 +1,58 @@
 /*
- * version.last: 2013.06.19 minor 2013.07.28
- * version.previous: 2010.12.05
+ * version.last: 2013.9.6.10
+ * version.previous: 2013.7.28.9
+ * version.previous: 2013.7.20.8
+ * version.previous: 2013.7.1.7
+ * version.previous: 2013.6.21.5
+ * version.previous: 2013.6.20.4
+ * version.previous: 2010.12.6.3
+ * version.previous: 2010.11.14.2
+ * version.previous: 2010.10.23.1
  */
 
+/*** CONTAINERS ***/
 
-#idCrxTocSpliterBarDiv {
-  background: #777777; /* Old browsers */
-  background: -webkit-linear-gradient(left, #777777 0%,#bbbbbb 50%,#777777 100%); /* Chrome10+,Safari5.1+ */
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#777777), color-stop(50%,#bbbbbb), color-stop(100%,#777777)); /* Chrome,Safari4+ */
-  background: -moz-linear-gradient(left,  #777777 0%, #000000 50%, #777777 100%); /* FF3.6+ */
-  background: -o-linear-gradient(left,  #777777 0%,#bbbbbb 50%,#777777 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(left,  #777777 0%,#bbbbbb 50%,#777777 100%); /* IE10+ */
-  background: linear-gradient(to right,  #777777 0%,#bbbbbb 50%,#777777 100%); /* W3C */
-}
-#idCrxTocSpliterBarButonDiv {
-  background: #333333; /* Old browsers */
-  background: -webkit-linear-gradient(left, #333333 0%,#999999 50%,#333333 100%); /* Chrome10+,Safari5.1+ */
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#333333), color-stop(50%,#999999), color-stop(100%,#333333)); /* Chrome,Safari4+ */
-  background: -moz-linear-gradient(left,  #333333 0%, #000000 50%, #333333 100%); /* FF3.6+ */
-  background: -o-linear-gradient(left,  #333333 0%,#999999 50%,#333333 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(left,  #333333 0%,#999999 50%,#333333 100%); /* IE10+ */
-  background: linear-gradient(to right,  #333333 0%,#999999 50%,#333333 100%); /* W3C */
-}
 #idCrxTocSpliterLefDiv {
   background: #dddddd; /* Old browsers */
-  background: -webkit-gradient(linear, right top, left top, color-stop(#dddddd), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(right,  #dddddd,#ffffff 100%); /* Chrome10+,Safari5.1+ */
-  background: -moz-linear-gradient(right,  #dddddd, #ffffff 100%); /* FF3.6+ */
-  background: -o-linear-gradient(right,  #dddddd,#ffffff 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(right,  #dddddd,#ffffff 100%); /* IE10+ */
-  background: linear-gradient(to left,  #dddddd,#ffffff 100%); /* W3C */
-  line-height: 105%;
+  background: linear-gradient(to left, #dddddd, #ffffff 100%); /* W3C */
+  position: absolute;
+  left: 0px;
+  line-height: 100%;
+  height: 100%;
+  margin: 0px;
+  font-size: 14px;
+  z-index: 20; /* div left */
+  overflow: auto;
 }
+#idCrxTocSpliterBarDiv {
+  background: #aaaaaa;
+  background: linear-gradient(to left, #aaaaaa, #dddddd 100%);
+  position: absolute;
+  cursor: e-resize;
+  width: 10px;
+  height: 100%;
+  z-index: 10; /* div bar */
+}
+#idCrxTocSpliterBarButonDiv {
+  background: #999999;
+  background: linear-gradient(to left, #999999, #dddddd 100%);
+  position: relative;
+  top: 40%;
+  height: 15%;
+  width: 10px;
+  cursor: pointer;
+}
+#idCrxTocSpliterRightDiv {
+  background: white;
+  position: absolute;
+  right: 0px;
+  height: 100%;
+  padding: 0 5px 0 5px;
+  outline: none;
+  z-index: 0; /* div right */
+  overflow: auto;
+}
+
 #idCrxTocSpliterLefDiv > p {
   text-align: left;
   text-indent: -25px;
@@ -42,10 +63,19 @@
   margin-left: 5px;
   margin-bottom: 10px;
 }
+#idCrxTocSpliterBarDivGhost {
+  position: absolute;
+  background-color: #cccccc;
+  z-index: 40; /* div ghost */
+  -webkit-user-select: none;
+}
+
+/*** TOC ***/
 
 #idCrxTocTree {
   margin: 0px;
   padding: 0px;
+  line-height: 105%;
 }
 #idCrxTocTree li a {
   color: rgb(0, 0, 0);
@@ -57,6 +87,7 @@
 #idCrxTocTree ul {
   margin-left: 20px;
   padding-left: 0px;
+  line-height: 105%;
 }
 #idCrxTocTree li {
   list-style-type: none;
@@ -68,26 +99,66 @@
   color: #0000aa;
   text-decoration: underline;
 }
+#idCrxTocTree > li > a {
+  color: green;
+  font-weight: bold;
+}
+#idCrxTocTree > li > ul > li > a {
+  color: green;
+}
+#idCrxTocTree > li > ul > li > ul > li > a {
+  color: blue;
+}
+#idCrxTocTree > li > ul > li > ul > li > ul > li > a {
+  color: indigo;
+}
 #idCrxTocTree span {
   border-bottom: none;
 }
-
-.classCrxTocTreeHighlight {
+.clsCrxTocTreeHighlight {
   background: yellow !important;
 }
 
-span.classSpanListIcon {
+span.clsSpanListIcon {
   cursor:pointer;
 }
 
-.classCrxTocBtn {
-  -moz-border-radius: 9px;
-  -webkit-border-radius: 9px;
-  -khtml-border-radius: 9px;
+.clsCrxTocBtn {
   border-radius: 5px;
   background: linear-gradient(to right, #bbbbbb, #ffffff); /* W3C */
 }
-.classCrxTocBtn:hover {
-  background:#e0f2f7;
+.clsCrxTocBtn:hover {
+  background: #e0f2f7;
 }
 
+/*** CLASS.COLOR ***/
+
+.color-blue {
+  color: #0000ff;
+}
+
+.color-green {
+  color: #008000;
+}
+.color-green-bg {
+  background-color: #008000;
+}
+.color-red {
+  color: #ff0000;
+}
+.color-yellow {
+  color: #FFFF00;
+}
+.color-yellow-bg {
+  background-color: #FFFF00;
+}
+.style-b {
+  font-weight: bold;
+}
+.style-bu {
+  font-weight: bold;
+  text-decoration: underline;
+}
+.style-u {
+  text-decoration: underline;
+}
