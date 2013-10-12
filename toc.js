@@ -1,5 +1,6 @@
 /*
- * version.last: 2013.9.6.10
+ * version.last: 2013.10.12.11
+ * version.previous: 2013.9.6.10
  * version.previous: 2013.7.28.9
  * version.previous: 2013.7.20.8
  * version.previous: 2013.7.1.7
@@ -130,7 +131,9 @@ function fcnH5oGet_outlineHtml() {
       /* removes from heading the "classHide" content */
       sTxt = sTxt.replace(/\n *¶$/, "");
       /* wikipedia specific */
-      sTxt = sTxt.replace(/\[edit.*editbeta\]$/, "");
+      sTxt = sTxt.replace(/\[edit\]$/, "");
+      sTxt = sTxt.replace(/\[edit.*\]$/, "");
+      sTxt = sTxt.replace(/\[Επεξεργασία.*\]$/, "");
       return sTxt
         || eltHeading.innerText
         || "<i>No text content inside " + eltHeading.nodeName + "</i>";
