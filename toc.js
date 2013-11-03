@@ -1,5 +1,5 @@
 /*
- * version.last: 2013.11.03.12 △▽
+ * version.last: 2013.11.3.12 △▽
  * version.previous: 2013.10.12.11
  * version.previous: 2013.9.6.10
  * version.previous: 2013.7.28.9
@@ -509,7 +509,7 @@ function fcnTocTreeInit() {
     tocNoIdTreeLi += 1;
     subItems = tocTreeLIs[no].getElementsByTagName('ul');
     eltSpan = document.createElement('span');
-    eltSpan.innerHTML = '△';
+    eltSpan.innerHTML = '▽';
     eltSpan.onclick = fcnTocTreeShow_hide_node;
     eltSpan.setAttribute('class', 'clsIconListUpdown');
     if (subItems.length === 0) {
@@ -709,8 +709,8 @@ function fcnTocTreeExpand_parent(elm) {
     eltUl.style.display = 'block';
     /* the parent is li-elm, its first-child is img */
     eltSpan = eltUl.parentNode.firstChild;
-    if (eltSpan.tagName === 'SPAN' && eltSpan.innerHTML === '△') {
-      eltSpan.innerHTML = '▽';
+    if (eltSpan.tagName === 'SPAN' && eltSpan.innerHTML === '▽') {
+      eltSpan.innerHTML = '△';
     }
     eltUl = eltUl.parentNode.parentNode;
   }

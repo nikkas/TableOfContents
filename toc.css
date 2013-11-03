@@ -1,5 +1,5 @@
 /*
- * version.last: 2013.11.3.11
+ * version.last: 2013.11.3.12
  * version.previous: 2013.9.6.10
  * version.previous: 2013.7.28.9
  * version.previous: 2013.7.20.8
@@ -133,6 +133,7 @@ span.clsIconListDiamond {
 .clsCrxTocBtn {
   border-radius: 5px;
   background: linear-gradient(to right, #bbbbbb, #ffffff); /* W3C */
+  font-size: 16px;
 }
 .clsCrxTocBtn:hover {
   background: #e0f2f7;
