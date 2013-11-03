@@ -1,5 +1,6 @@
 /*
- * version.last: 2013.9.6.10
+ * version.last: 2013.11.3.11
+ * version.previous: 2013.9.6.10
  * version.previous: 2013.7.28.9
  * version.previous: 2013.7.20.8
  * version.previous: 2013.7.1.7
@@ -119,8 +120,14 @@
   background: yellow !important;
 }
 
-span.clsSpanListIcon {
+span.clsIconListUpdown {
+  color: navy;
   cursor:pointer;
+  font-size: 15px;
+}
+span.clsIconListDiamond {
+  color: navy;
+  font-size: 15px;
 }
 
 .clsCrxTocBtn {

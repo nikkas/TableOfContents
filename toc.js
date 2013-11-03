@@ -1,5 +1,6 @@
 /*
- * version.last: 2013.10.12.11
+ * version.last: 2013.11.03.12 △▽
+ * version.previous: 2013.10.12.11
  * version.previous: 2013.9.6.10
  * version.previous: 2013.7.28.9
  * version.previous: 2013.7.20.8
@@ -467,12 +468,14 @@ function fcnTocTreeShow_hide_node(e, inputId) {
       nodeThis = this.parentNode.getElementsByTagName('span')[0];
     }
   }
-  parentNode = nodeThis.parentNode;/* ▶▷⊳ ▾▼▽∇ ◇◊*/
-  if (nodeThis.innerHTML === '▼') {
-    nodeThis.innerHTML = '∇';
+  parentNode = nodeThis.parentNode;/* ▽△◇ ▼▲◆ ▶▷⊳ ▾▽∇ ◊*/
+  if (nodeThis.innerHTML === '▽') {
+    nodeThis.innerHTML = '△';
+    nodeThis.setAttribute('class', 'clsIconListUpdown');
     parentNode.getElementsByTagName('ul')[0].style.display = 'block';
-  } else if (nodeThis.innerHTML === '∇') {
-    nodeThis.innerHTML = '▼';
+  } else if (nodeThis.innerHTML === '△') {
+    nodeThis.innerHTML = '▽';
+    nodeThis.setAttribute('class', 'clsIconListUpdown');
     parentNode.getElementsByTagName('ul')[0].style.display = 'none';
   }
   return false;
@@ -506,12 +509,13 @@ function fcnTocTreeInit() {
     tocNoIdTreeLi += 1;
     subItems = tocTreeLIs[no].getElementsByTagName('ul');
     eltSpan = document.createElement('span');
-    eltSpan.innerHTML = '▼';
+    eltSpan.innerHTML = '△';
     eltSpan.onclick = fcnTocTreeShow_hide_node;
-    eltSpan.setAttribute('class', 'clsSpanListIcon');
+    eltSpan.setAttribute('class', 'clsIconListUpdown');
     if (subItems.length === 0) {
       eltSpan.innerHTML = '◇';
       eltSpan.removeAttribute('class');
+      eltSpan.setAttribute('class', 'clsIconListDiamond');
     }
     aTag = tocTreeLIs[no].getElementsByTagName('a')[0];
     tocTreeLIs[no].insertBefore(eltSpan, aTag);
@@ -705,8 +709,8 @@ function fcnTocTreeExpand_parent(elm) {
     eltUl.style.display = 'block';
     /* the parent is li-elm, its first-child is img */
     eltSpan = eltUl.parentNode.firstChild;
-    if (eltSpan.tagName === 'SPAN' && eltSpan.innerHTML === '▼') {
-      eltSpan.innerHTML = '∇';
+    if (eltSpan.tagName === 'SPAN' && eltSpan.innerHTML === '△') {
+      eltSpan.innerHTML = '▽';
     }
     eltUl = eltUl.parentNode.parentNode;
   }
@@ -758,7 +762,7 @@ chrome.extension.onMessage.addListener(
         /* insert collaplse-button */
         eltTocBtnCollapse_All.setAttribute('id', 'idBtnCollapse_All');
         eltTocBtnCollapse_All.setAttribute('type', 'button');
-        eltTocBtnCollapse_All.setAttribute('value', '▼');
+        eltTocBtnCollapse_All.setAttribute('value', '△');
         eltTocBtnCollapse_All.setAttribute('title', 'Collapse-All');
         eltTocBtnCollapse_All.setAttribute('class', 'clsCrxTocBtn');
         $(eltTocBtnCollapse_All).click(
@@ -770,7 +774,7 @@ chrome.extension.onMessage.addListener(
         /* insert expand-button */
         eltTocBtnExp_All.setAttribute('id', 'idBtnExp_All');
         eltTocBtnExp_All.setAttribute('type', 'button');
-        eltTocBtnExp_All.setAttribute('value', '∇');
+        eltTocBtnExp_All.setAttribute('value', '▽');
         eltTocBtnExp_All.setAttribute('title', 'Expand-All');
         eltTocBtnExp_All.setAttribute('class', 'clsCrxTocBtn');
         $(eltTocBtnExp_All).click(
