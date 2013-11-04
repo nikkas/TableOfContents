@@ -1,9 +1,10 @@
 {
-  "name": "Table-of-contents-crx",
-  "version": "2013.11.3.12",
   "manifest_version": 2,
+  "name": "Table-of-contents-crx",
+  "version": "2013.11.4.14",
 
-  "description": "Creates an expandable Table-of-Contents on ANY web-page with headings.",
+  "description": "Creates an expandable Table-of-Contents on ANY web-page with headings",
+  "short_name": "crxToc",
 
   "icons": { "16": "toc-img-16.png",
              "48": "toc-img-48.png",

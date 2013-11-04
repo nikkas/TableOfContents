@@ -1,5 +1,5 @@
 /*
- * version.last: 2013.11.3.12
+ * version.last: 2013.11.4.14
  * version.previous: 2013.9.6.10
  * version.previous: 2013.7.28.9
  * version.previous: 2013.7.20.8
@@ -86,9 +86,10 @@
   padding-left: 1px;
 }
 #idCrxTocTree ul {
-  margin-left: 20px;
+  margin-left: 12px;
   padding-left: 0px;
   line-height: 105%;
+  text-align: left;
 }
 #idCrxTocTree li {
   list-style-type: none;
