@@ -1,5 +1,6 @@
 /*
- * version.last: 2013.11.3.12 △▽
+ * version.last: 2013.11.11.15 »«
+ * version.previous: 2013.11.3.12 △▽
  * version.previous: 2013.10.12.11
  * version.previous: 2013.9.6.10
  * version.previous: 2013.7.28.9
@@ -579,15 +580,15 @@ jQuery.fn.fcnTocSpliting = function () {
     }
 
     /* Perform actual splitting and animate it */
-    function fcnTocSplitTo(pos) {
-      pos = parseInt(pos, null);
+    function fcnTocSplitTo(nPos) {
+      nPos = parseInt(nPos, null);
       posSplitPrevious = posSplitCurrent;
-      posSplitCurrent = pos;
+      posSplitCurrent = nPos;
 
-      var sizeB = eltSpliterDiv.width() - pos - 10 - 10; /* setting splitBar padding */
-      eltSpliterLeftDiv.css({'width': pos + 'px'});
-      eltSpliterBarDiv.css({'left': pos + 'px'});
-      eltSpliterRightDiv.css({'width': sizeB + 'px', 'left': pos + 10 + 'px'});
+      var sizeB = eltSpliterDiv.width() - nPos - 10 - 10; /* setting splitBar padding */
+      eltSpliterLeftDiv.css({'width': nPos + 'px'});
+      eltSpliterBarDiv.css({'left': nPos + 'px'});
+      eltSpliterRightDiv.css({'width': sizeB + 'px', 'left': nPos + 10 + 'px'});
 
       eltSpliterDiv.queue(function () {
         setTimeout(function () {
@@ -595,6 +596,12 @@ jQuery.fn.fcnTocSpliting = function () {
           eltSpliterChildren.trigger('resize');
         }, 22);
       });
+      if (nPos === 0) {
+        eltSpliterBarButonDiv.html('<span><br/>»</span>');
+      } else {
+        eltSpliterBarButonDiv.html('<span><br/>«</span>');
+      }
+      eltSpliterBarDiv.css({'background': 'linear-gradient(to left, #aaaaaa, #dddddd 100%)'});
     }
 
     function fncDragEnd(e) {
@@ -640,9 +647,6 @@ jQuery.fn.fcnTocSpliting = function () {
     eltSpliterBarButonDiv.attr({'id': 'idCrxTocSpliterBarButonDiv'});
     eltSpliterBarDiv.append(eltSpliterBarButonDiv);
     eltSpliterBarButonDiv.mousedown(function (e) {
-      if (e.target !== this) {
-        return;
-      }
       fcnTocSplitTo((posSplitCurrent === 0) ? posSplitPrevious : 0);
       return false;
     });

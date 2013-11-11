@@ -1,5 +1,6 @@
 /*
- * version.last: 2013.11.4.14
+ * version.last: 2013.11.11.15 »«
+ * version.previous: 2013.11.4.14
  * version.previous: 2013.9.6.10
  * version.previous: 2013.7.28.9
  * version.previous: 2013.7.20.8
@@ -38,8 +39,8 @@
   background: #999999;
   background: linear-gradient(to left, #999999, #dddddd 100%);
   position: relative;
-  top: 40%;
-  height: 15%;
+  top: 42%;
+  height: 59px;
   width: 10px;
   cursor: pointer;
 }
