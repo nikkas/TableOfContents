@@ -1,5 +1,6 @@
 /*
- * version.last: 2013.11.11.15 »«
+ * version.last: 2014.01.10.16 toc on hovering
+ * version.previous: 2013.11.11.15 »«
  * version.previous: 2013.11.3.12 △▽
  * version.previous: 2013.10.12.11
  * version.previous: 2013.9.6.10
@@ -13,7 +14,7 @@
  * version.previous: 2010.10.23.1
  * toc.js - the content-scripts of Table-of-contents-chrome-extension.
  *
- * Copyright (C) 2010-2013 Kaseluris.Nikos.1959,
+ * Copyright (C) 2010-2014 Kaseluris.Nikos.1959,
  * kaseluris.nikos@gmail.com
  * synagonism.net
  *
@@ -794,7 +795,7 @@ chrome.extension.onMessage.addListener(
         eltSpliterLeftDiv.insertBefore(eltPpath, eltSpliterLeftDiv.firstChild);
 
         /* toc: add note at the end */
-        eltPNote.innerHTML = '<span class="color-green">Note</span>: clicking on a HEADING or TEXT, you see its position on ToC.';
+        eltPNote.innerHTML = '<span class="color-green">Note</span>: hovering a piece of text, you see its position (with some exceptions!!!) on ToC.';
         eltSpliterLeftDiv.appendChild(eltPNote);
 
         $(eltSpliterLeftDiv).find("li > a").each(
@@ -818,7 +819,7 @@ chrome.extension.onMessage.addListener(
         /* on content get-id */
         $(eltSpliterRightDiv).find('*').each(
           function () {
-            $(this).click(
+            $(this).mouseover(
               function (event) {
                 if (event.stopPropagation) {
                   event.stopPropagation();

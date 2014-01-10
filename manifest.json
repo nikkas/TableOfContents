@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Table-of-contents-crx",
-  "version": "2013.11.11.15",
+  "version": "2014.1.10.16",
 
   "description": "Creates an expandable Table-of-Contents on ANY web-page with headings",
   "short_name": "crxToc",
